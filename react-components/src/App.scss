@@ -1,0 +1,40 @@
+:root {
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  display: flex;
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  font-size: 1.3rem;
+  background-color: #5d5c65;
+
+  &__link {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #ffffff;
+    transition: 0.3s;
+
+    &:hover {
+      color: #e2f1a0;
+    }
+
+    &:active {
+      color: #d1ff02;
+    }
+
+    &_is_chosen {
+      background-color: #cbcbcb6a;
+      color: #d1ff02;
+    }
+  }
+}
