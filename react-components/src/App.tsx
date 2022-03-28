@@ -10,7 +10,7 @@ import Header from './components/Header';
 class App extends React.Component {
   render() {
     return (
-      <>
+      <div>
         <Header />
         <Routes>
           <Route path="/" element={<Main />} />
@@ -18,7 +18,7 @@ class App extends React.Component {
           <Route path="/404" element={<Page404 />} />
           <Route path="*" element={<Navigate to="/404" />} />
         </Routes>
-      </>
+      </div>
     );
   }
 }
