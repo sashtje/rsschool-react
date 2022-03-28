@@ -26,7 +26,7 @@ class Main extends Component<Record<string, never>, IState> {
               this.changeSearch(searchStr);
             }}
           />
-          <Cards />
+          <Cards search={this.state.search} />
         </div>
       </main>
     );

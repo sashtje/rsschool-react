@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { FcSearch } from 'react-icons/fc';
 
-interface IState {
-  search: string;
-}
-
 interface Props {
   search: string;
   setSearch: (searchStr: string) => void;
