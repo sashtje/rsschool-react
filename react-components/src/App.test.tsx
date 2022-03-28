@@ -111,6 +111,8 @@ test('Save to the local storage', () => {
   const input = screen.getByRole('textbox') as HTMLInputElement;
   const value = 'Turkey';
 
+  input.value = '';
+
   userEvent.type(input, value);
   expect(input).toHaveValue(value);
   userEvent.click(linkAbout);
