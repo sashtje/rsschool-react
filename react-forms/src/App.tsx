@@ -6,6 +6,7 @@ import Main from './pages/Main';
 import About from './pages/About';
 import Page404 from './pages/Page404';
 import Header from './components/Header';
+import FormPage from './pages/FormPage';
 
 class App extends React.Component {
   render() {
@@ -15,6 +16,7 @@ class App extends React.Component {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/about" element={<About />} />
+          <Route path="/form" element={<FormPage />} />
           <Route path="/404" element={<Page404 />} />
           <Route path="*" element={<Navigate to="/404" />} />
         </Routes>
