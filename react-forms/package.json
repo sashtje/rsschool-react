@@ -55,5 +55,8 @@
     "collectCoverageFrom": [
       "!src/index.tsx"
     ]
+  },
+  "devDependencies": {
+    "react-icons": "^4.3.1"
   }
 }
