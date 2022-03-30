@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { data } from '../model';
+
 import Card from './Card';
+
+import { data } from '../model';
 
 interface Props {
   search: string;

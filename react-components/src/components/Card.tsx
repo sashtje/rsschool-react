@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import { IData } from '../model';
+import { Component } from 'react';
 import { AiOutlineLike, AiOutlineEye } from 'react-icons/ai';
+
+import { IData } from '../model';
 
 interface Props {
   card: IData;

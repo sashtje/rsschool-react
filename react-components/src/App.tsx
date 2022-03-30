@@ -1,10 +1,12 @@
 import React from 'react';
-import './App.scss';
 import { Routes, Route, Navigate } from 'react-router-dom';
+
 import Main from './pages/Main';
 import About from './pages/About';
 import Page404 from './pages/Page404';
 import Header from './components/Header';
+
+import './App.scss';
 
 class App extends React.Component {
   render() {
