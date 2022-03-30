@@ -8,30 +8,30 @@ interface Props {
 
 class Card extends Component<Props> {
   render() {
-    const card = this.props.card;
+    const { photo, country, author, likes, views } = this.props.card;
 
     return (
       <section className="home__card card" data-testid="card">
         <div className="card__photo">
-          <img src={`./img/${card.photo}`} alt="card photo" />
+          <img src={`./img/${photo}`} alt="card photo" />
         </div>
         <h2 className="card__country" data-testid="card-title">
-          {card.country}
+          {country}
         </h2>
         <div className="card__author">
           by{' '}
           <span className="card__author-name" data-testid="card-author">
-            {card.author}
+            {author}
           </span>
         </div>
         <div className="card__feedback">
           <div className="card__likes" data-testid="card-likes">
             <AiOutlineLike />
-            {card.likes}
+            {likes}
           </div>
           <div className="card__views" data-testid="card-views">
             <AiOutlineEye />
-            {card.views}
+            {views}
           </div>
         </div>
       </section>
