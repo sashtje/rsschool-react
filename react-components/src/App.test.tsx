@@ -79,7 +79,7 @@ test('Navigation Test for Router', () => {
 
 test('Cards render test', () => {
   renderWithRouter(<App />);
-  const input = screen.getByRole('textbox') as HTMLInputElement;
+  const input = screen.getByRole('searchbox') as HTMLInputElement;
   const cards = screen.getAllByTestId('card');
   if (input.value === '') {
     expect(cards.length).toBe(data.length);
@@ -108,7 +108,7 @@ test('Save to the local storage', () => {
   renderWithRouter(<App />);
   const linkHome = screen.getByText(/Home/i);
   const linkAbout = screen.getByText(/About us/i);
-  const input = screen.getByRole('textbox') as HTMLInputElement;
+  const input = screen.getByRole('searchbox') as HTMLInputElement;
   const value = 'Turkey';
 
   input.value = '';
