@@ -12,10 +12,7 @@ class Header extends Component<Record<string, never>, IState> {
   }
 
   returnClass = (linkPath: string, path: string): string => {
-    if (linkPath === path) {
-      return 'header__link header__link_is_chosen';
-    }
-    return 'header__link';
+    return linkPath === path ? 'header__link header__link_is_chosen' : 'header__link';
   };
 
   render() {
