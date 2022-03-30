@@ -17,7 +17,7 @@ class App extends React.Component {
           <Route path="about" element={<About />} />
           <Route path="form" element={<FormPage />} />
           <Route path="404" element={<Page404 />} />
-          <Route path="*" element={<Navigate to="/404" />} />
+          <Route path="*" element={<Navigate to="/404" replace />} />
         </Route>
       </Routes>
     );
