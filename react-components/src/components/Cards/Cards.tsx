@@ -13,7 +13,10 @@ interface Props {
 class Cards extends Component<Props> {
   render() {
     return (
-      <div className={this.props.className ? this.props.className + ' cards' : 'cards'}>
+      <div
+        className={this.props.className ? this.props.className + ' cards' : 'cards'}
+        data-testid="cards"
+      >
         {data.map((item) => (
           <Card card={item} key={item.id} />
         ))}
