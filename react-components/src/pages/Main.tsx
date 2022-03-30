@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import SearchBar from '../components/SearchBar';
 import Cards from '../components/Cards';
 
