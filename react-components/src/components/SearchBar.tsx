@@ -42,7 +42,7 @@ class SearchBar extends Component<Props> {
         <input
           className="searchbar__input"
           autoFocus
-          type="text"
+          type="search"
           value={this.props.search}
           onChange={(e) => {
             this.props.setSearch(e.target.value);
