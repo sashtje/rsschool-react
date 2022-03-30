@@ -1,9 +1,11 @@
 import { render, screen } from '@testing-library/react';
-import App from './App';
-import { BrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
-import { data } from './model';
-import Card from './components/Card';
+import { BrowserRouter } from 'react-router-dom';
+
+import App from './App';
+import Card from './components/Card/Card';
+
+import { data } from './model/model';
 
 const renderWithRouter = (ui: React.ReactElement, { route = '/' } = {}) => {
   window.history.pushState({}, 'Test page', route);

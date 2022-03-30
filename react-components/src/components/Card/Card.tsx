@@ -1,7 +1,9 @@
 import { Component } from 'react';
 import { AiOutlineLike, AiOutlineEye } from 'react-icons/ai';
 
-import { IData } from '../model';
+import './Card.scss';
+
+import { IData } from '../../model/model';
 
 interface Props {
   card: IData;
@@ -12,7 +14,7 @@ class Card extends Component<Props> {
     const { photo, country, author, likes, views } = this.props.card;
 
     return (
-      <section className="home__card card" data-testid="card">
+      <section className="card" data-testid="card">
         <div className="card__photo">
           <img src={`./img/${photo}`} alt="card photo" />
         </div>

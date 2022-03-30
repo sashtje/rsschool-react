@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { FiGithub } from 'react-icons/fi';
+
+import './About.scss';
 
 class About extends Component {
   render() {

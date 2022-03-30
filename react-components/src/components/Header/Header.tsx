@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
+import './Header.scss';
+
 class Header extends Component {
   setActive = ({ isActive }: { isActive: boolean }) =>
     isActive ? 'header__link header__link_is_chosen' : 'header__link';

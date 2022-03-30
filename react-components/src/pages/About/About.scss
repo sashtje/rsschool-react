@@ -1,0 +1,27 @@
+.about {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 1.2rem;
+
+  &__text {
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  &__link {
+    color: #aa00ff;
+    font-size: 1.5rem;
+    transition: 0.3s;
+
+    &:hover {
+      color: #160ff3;
+      transform: scale(1.5);
+    }
+  }
+}

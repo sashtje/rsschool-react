@@ -1,0 +1,31 @@
+.searchbar {
+  position: relative;
+  width: 100%;
+
+  &__icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.9rem;
+
+    svg {
+      display: block;
+    }
+  }
+
+  &__input {
+    display: block;
+    width: 100%;
+    padding: 20px 20px 20px 50px;
+    font-size: 1.2rem;
+    border: 2px solid #0e587f;
+    border-radius: 30px;
+    transition: 0.3s;
+
+    &:focus {
+      border-color: #ff8902;
+      outline: none;
+    }
+  }
+}
