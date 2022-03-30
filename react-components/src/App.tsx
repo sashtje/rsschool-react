@@ -1,10 +1,10 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-import Main from './pages/Main';
-import About from './pages/About';
-import Page404 from './pages/Page404';
-import Header from './components/Header';
+import Main from './pages/Main/Main';
+import About from './pages/About/About';
+import Page404 from './pages/Page404/Page404';
+import Header from './components/Header/Header';
 
 import './App.scss';
 

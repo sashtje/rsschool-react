@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
-import SearchBar from '../components/SearchBar';
-import Cards from '../components/Cards';
+import SearchBar from '../../components/SearchBar/SearchBar';
+import Cards from '../../components/Cards/Cards';
+
+import './Main.scss';
 
 interface IState {
   search: string;
@@ -27,7 +29,7 @@ class Main extends Component<Record<string, never>, IState> {
               this.changeSearch(searchStr);
             }}
           />
-          <Cards search={this.state.search} />
+          <Cards className="home__cards" search={this.state.search} />
         </div>
       </main>
     );

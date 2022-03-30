@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
+
+import './Page404.scss';
 
 class Page404 extends Component {
   render() {

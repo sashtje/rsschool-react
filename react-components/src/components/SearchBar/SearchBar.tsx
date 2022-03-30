@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { FcSearch } from 'react-icons/fc';
+
+import './SearchBar.scss';
 
 interface Props {
   search: string;
