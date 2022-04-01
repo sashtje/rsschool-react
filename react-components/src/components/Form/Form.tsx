@@ -29,9 +29,9 @@ class Form extends Component {
           <Switcher label="Gender:" />
         </div>
 
-        {/* <div className="form-register__row">
+        <div className="form-register__row">
           <UploadPhoto />
-        </div> */}
+        </div>
 
         {/* <div className="form-register__row">
           <Checkbox />

@@ -1,0 +1,12 @@
+.uploadphoto {
+  &__input {
+    display: block;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  &__validation {
+    margin-top: 5px;
+    color: #ff0000;
+  }
+}
