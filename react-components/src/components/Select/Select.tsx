@@ -22,6 +22,8 @@ class Select extends Component<IProps> {
             ))}
           </select>
         </Label>
+
+        <div className="selectfield__validation">Error</div>
       </div>
     );
   }

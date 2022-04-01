@@ -26,22 +26,20 @@ class Form extends Component {
         <TextField label="Zip code:" />
 
         <div className="form-register__row">
-          Male
-          <Switcher />
-          Female
+          <Switcher label="Gender:" />
         </div>
 
-        <div className="form-register__row">
+        {/* <div className="form-register__row">
           <UploadPhoto />
-        </div>
+        </div> */}
 
-        <div className="form-register__row">
+        {/* <div className="form-register__row">
           <Checkbox />
-        </div>
+        </div> */}
 
-        <div className="form-register__row">
+        {/* <div className="form-register__row">
           <Submit />
-        </div>
+        </div> */}
       </form>
     );
   }

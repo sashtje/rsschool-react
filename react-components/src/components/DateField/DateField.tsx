@@ -16,6 +16,8 @@ class DateField extends Component<IProps> {
           {this.props.label}
           <input className="datefield__input" type="date" />
         </Label>
+
+        <div className="datefield__validation">Error</div>
       </div>
     );
   }
