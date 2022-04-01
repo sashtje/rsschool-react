@@ -10,6 +10,7 @@ import Checkbox from '../../components/Checkbox/Checkbox';
 import Submit from '../../components/Submit/Submit';
 
 import './Form.scss';
+import { countries } from '../../model/countries';
 
 class Form extends Component {
   render() {
@@ -21,7 +22,7 @@ class Form extends Component {
         <EmailField label="Email:" />
         <DateField label="Birthday:" />
 
-        <Select />
+        <Select label="Country:" options={countries} />
         <TextField label="Zip code:" />
 
         <div className="form-register__row">
