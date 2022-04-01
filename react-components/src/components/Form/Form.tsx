@@ -34,7 +34,7 @@ class Form extends Component {
         </div>
 
         <div className="form-register__row">
-          <Checkbox />
+          <Checkbox label="I want to receive news" />
         </div>
 
         <div className="form-register__row">

@@ -1,11 +1,19 @@
 import { Component } from 'react';
 
-class Checkbox extends Component {
+import './Checkbox.scss';
+
+interface IProps {
+  label: string;
+}
+
+class Checkbox extends Component<IProps> {
   render() {
     return (
-      <div>
-        <input type="checkbox" />
-      </div>
+      <label className="checkbox">
+        <input className="checkbox__input" type="checkbox" />
+        <div className="checkbox__checkbox"></div>
+        <span className="checkbox__label">{this.props.label}</span>
+      </label>
     );
   }
 }

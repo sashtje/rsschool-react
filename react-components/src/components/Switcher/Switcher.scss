@@ -18,7 +18,7 @@
     }
 
     &:focus + .switcher__track {
-      box-shadow: 3px 3px 3px rgba(33, 150, 243, 0.5);
+      box-shadow: 3px 3px 3px rgba(159, 33, 243, 0.5);
     }
   }
 
@@ -29,7 +29,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #666666;
+    background-color: #f145cb;
     transition: 0.3s;
 
     &::before {
