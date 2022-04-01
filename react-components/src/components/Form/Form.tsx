@@ -19,7 +19,7 @@ class Form extends Component {
         <TextField label="Surname:" />
 
         <EmailField label="Email:" />
-        <DateField />
+        <DateField label="Birthday:" />
 
         <Select />
         <TextField label="Zip code:" />
