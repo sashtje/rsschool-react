@@ -33,13 +33,13 @@ class Form extends Component {
           <UploadPhoto />
         </div>
 
-        {/* <div className="form-register__row">
+        <div className="form-register__row">
           <Checkbox />
-        </div> */}
+        </div>
 
-        {/* <div className="form-register__row">
+        <div className="form-register__row">
           <Submit />
-        </div> */}
+        </div>
       </form>
     );
   }

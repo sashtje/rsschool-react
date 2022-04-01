@@ -1,12 +1,10 @@
 import { Component } from 'react';
 
+import './Submit.scss';
+
 class Submit extends Component {
   render() {
-    return (
-      <div>
-        <button>Submit</button>
-      </div>
-    );
+    return <button className="submit">Submit</button>;
   }
 }
 
