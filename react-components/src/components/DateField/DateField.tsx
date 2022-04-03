@@ -17,8 +17,6 @@ class DateField extends Component<IProps> {
   handleChange = () => {
     const { textErr, name, errorReset, checkSubmitBtn } = this.props;
 
-    console.log(this.props.dateRef.current?.value);
-
     if (textErr !== '') {
       errorReset(`${name}Err`);
     }

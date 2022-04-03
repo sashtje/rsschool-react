@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import TextField from '../../components/TextField/TextField';
 import DateField from '../../components/DateField/DateField';
 import Select from '../../components/Select/Select';
-import EmailField from '../../components/EmailField/EmailField';
 import Switcher from '../../components/Switcher/Switcher';
 import UploadPhoto from '../../components/UploadPhoto/UploadPhoto';
 import Checkbox from '../../components/Checkbox/Checkbox';
@@ -45,6 +44,8 @@ class Form extends Component<IProps, IState> {
   newsRef: React.RefObject<HTMLInputElement>;
   btnSubmitRef: React.RefObject<HTMLButtonElement>;
 
+  error: IState;
+
   constructor(props: IProps) {
     super(props);
 
@@ -68,11 +69,14 @@ class Form extends Component<IProps, IState> {
       zipcodeErr: '',
       picErr: '',
     };
+
+    this.error = { ...this.state };
   }
 
-  errorChange(key: string, value = '') {
+  errorChange = (key: string, value = '') => {
     this.setState({ [key]: value } as State);
-  }
+    this.error[key as keyof IState] = value;
+  };
 
   validationNameAndSurname(value: string) {
     const regexp = /^[a-z]{3,15}$/i;
@@ -85,7 +89,17 @@ class Form extends Component<IProps, IState> {
   }
 
   validationBirt(value: string) {
-    return value === '' ? 'Please choose a date' : '';
+    if (value === '') {
+      return 'Please choose a date';
+    }
+
+    const date = new Date(value).getTime();
+    const dateNow = new Date();
+    const copyDateNow = new Date();
+    const date100Years = new Date(dateNow.setFullYear(dateNow.getFullYear() - 100)).getTime();
+    const date18Years = new Date(copyDateNow.setFullYear(copyDateNow.getFullYear() - 18)).getTime();
+
+    return date >= date100Years && date <= date18Years ? '' : 'Your age should be from 18 to 100';
   }
 
   validationCountry(value: string) {
@@ -132,6 +146,15 @@ class Form extends Component<IProps, IState> {
       zipcodeErr: resValidZipcode,
       picErr: resValidPic,
     });
+    this.error = {
+      nameErr: resValidName,
+      surnameErr: resValidSurname,
+      emailErr: resValidEmail,
+      birthdayErr: resValidBirt,
+      countryErr: resValidCountry,
+      zipcodeErr: resValidZipcode,
+      picErr: resValidPic,
+    };
     return false;
   }
 
@@ -139,7 +162,6 @@ class Form extends Component<IProps, IState> {
 
   clearForm() {
     this.nameRef.current!.value = '';
-    this.nameRef.current!.focus();
     this.surnameRef.current!.value = '';
     this.emailRef.current!.value = '';
     this.birtRef.current!.value = '';
@@ -148,7 +170,6 @@ class Form extends Component<IProps, IState> {
     this.genderRef.current!.checked = false;
     this.picRef.current!.value = '';
     this.newsRef.current!.checked = false;
-    this.btnSubmitRef.current!.disabled = true;
   }
 
   handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -157,13 +178,14 @@ class Form extends Component<IProps, IState> {
     if (this.validationAll()) {
       const file = this.picRef.current?.files![0];
       const downFile = URL.createObjectURL(file!);
+      const dateBirth = new Date(this.birtRef.current?.value as string);
       const newCard: IRegisterCard = {
         id: new Date().getTime(),
         pic: downFile,
         name: this.nameRef.current?.value as string,
         surname: this.surnameRef.current?.value as string,
         email: this.emailRef.current?.value as string,
-        birthday: this.birtRef.current?.value as string,
+        birthday: dateBirth.toLocaleDateString(),
         country: this.countryRef.current?.value as string,
         zipcode: this.zipcodeRef.current?.value as string,
         gender: this.genderRef.current?.checked ? 'M' : 'F',
@@ -175,13 +197,16 @@ class Form extends Component<IProps, IState> {
       this.showNotification();
       this.clearForm();
     }
+
+    this.btnSubmitRef.current!.disabled = true;
+    this.nameRef.current!.focus();
   };
 
   checkSubmitBtn = () => {
     let pr: string;
     let isHasErrors = false;
-    for (pr of Object.keys(this.state)) {
-      if (this.state[pr as keyof IState] !== '') {
+    for (pr of Object.keys(this.error)) {
+      if (this.error[pr as keyof IState] !== '') {
         isHasErrors = true;
       }
     }
@@ -227,9 +252,9 @@ class Form extends Component<IProps, IState> {
           checkSubmitBtn={this.checkSubmitBtn}
         />
 
-        <EmailField
+        <TextField
           label="Email:"
-          emailRef={this.emailRef}
+          inputRef={this.emailRef}
           textErr={this.state.emailErr}
           name="email"
           errorReset={this.errorChange}
