@@ -16,6 +16,7 @@ import { countries } from '../../model/countries';
 
 interface IProps {
   addCard: (newCard: IRegisterCard) => void;
+  showNotification: () => void;
 }
 
 interface IState {
@@ -158,8 +159,6 @@ class Form extends Component<IProps, IState> {
     return false;
   }
 
-  showNotification() {}
-
   clearForm() {
     this.nameRef.current!.value = '';
     this.surnameRef.current!.value = '';
@@ -194,7 +193,7 @@ class Form extends Component<IProps, IState> {
 
       this.props.addCard(newCard);
 
-      this.showNotification();
+      this.props.showNotification();
       this.clearForm();
     }
 
