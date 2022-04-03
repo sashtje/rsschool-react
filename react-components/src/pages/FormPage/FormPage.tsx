@@ -5,13 +5,25 @@ import RegisterCards from '../../components/RegisterCards/RegisterCards';
 
 import './FormPage.scss';
 
-class FormPage extends Component {
+import { IRegisterCard } from '../../components/RegisterCard/types';
+
+interface IState {
+  cards: IRegisterCard[];
+}
+
+class FormPage extends Component<Record<string, unknown>, IState> {
+  state = { cards: [] };
+
+  addCard = (newCard: IRegisterCard) => {
+    this.setState((state) => ({ cards: [...state.cards, newCard] }));
+  };
+
   render() {
     return (
       <main className="form-page">
-        <Form />
+        <Form addCard={this.addCard} />
 
-        <RegisterCards className="form-page__register-cards" />
+        <RegisterCards cards={this.state.cards} className="form-page__register-cards" />
       </main>
     );
   }

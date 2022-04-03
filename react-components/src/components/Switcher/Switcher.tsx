@@ -6,6 +6,7 @@ import './Switcher.scss';
 
 interface IProps {
   label: string;
+  switcherRef: React.RefObject<HTMLInputElement>;
 }
 
 class Switcher extends Component<IProps> {
@@ -14,7 +15,7 @@ class Switcher extends Component<IProps> {
       <Label className="label_is_inline-flex">
         {this.props.label}
         <label className="switcher">
-          <input className="switcher__input" type="checkbox" />
+          <input ref={this.props.switcherRef} className="switcher__input" type="checkbox" />
           <span className="switcher__track">
             <span className="switcher__slider"></span>
           </span>

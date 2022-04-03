@@ -13,6 +13,10 @@
     &:checked + .checkbox__checkbox::after {
       content: '\2713';
     }
+
+    &:focus + .checkbox__checkbox {
+      box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    }
   }
 
   &__checkbox {

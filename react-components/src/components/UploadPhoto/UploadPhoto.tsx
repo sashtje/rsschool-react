@@ -2,13 +2,39 @@ import { Component } from 'react';
 
 import './UploadPhoto.scss';
 
-class UploadPhoto extends Component {
+interface IProps {
+  picRef: React.RefObject<HTMLInputElement>;
+  textErr: string;
+  name: string;
+  errorReset: (key: string) => void;
+  checkSubmitBtn: () => void;
+}
+
+class UploadPhoto extends Component<IProps> {
+  handleChange = () => {
+    const { textErr, name, errorReset, checkSubmitBtn } = this.props;
+
+    if (textErr !== '') {
+      errorReset(`${name}Err`);
+    }
+
+    checkSubmitBtn();
+  };
+
   render() {
     return (
       <div className="uploadphoto">
-        <input className="uploadphoto__input" type="file" accept=".png, .jpg, .jpeg" />
+        <input
+          ref={this.props.picRef}
+          className="uploadphoto__input"
+          type="file"
+          accept=".png, .jpg, .jpeg"
+          onChange={this.handleChange}
+        />
 
-        <div className="uploadphoto__validation">Error</div>
+        {this.props.textErr !== '' && (
+          <div className="uploadphoto__validation">{this.props.textErr}</div>
+        )}
       </div>
     );
   }

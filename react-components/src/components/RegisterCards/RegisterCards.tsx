@@ -4,24 +4,14 @@ import RegisterCard from '../RegisterCard/RegisterCard';
 
 import './RegisterCards.scss';
 
+import { IRegisterCard } from '../RegisterCard/types';
+
 interface IProps {
+  cards: IRegisterCard[];
   className?: string;
 }
 
-interface IRegisterCard {
-  id: number;
-  pic: string;
-  name: string;
-  surname: string;
-  email: string;
-  birthday: string;
-  country: string;
-  zipcode: string;
-  gender: string;
-  news: boolean;
-}
-
-const registercards = [
+/* const registercards = [
   {
     id: 1,
     pic: './img/photo_1.png',
@@ -46,7 +36,7 @@ const registercards = [
     gender: 'M',
     news: false,
   },
-];
+]; */
 
 class RegisterCards extends Component<IProps> {
   returnClass = () => {
@@ -56,7 +46,7 @@ class RegisterCards extends Component<IProps> {
   render() {
     return (
       <div className={this.returnClass()}>
-        {registercards.map((card) => (
+        {this.props.cards.map((card) => (
           <RegisterCard card={card} key={card.id} />
         ))}
       </div>
