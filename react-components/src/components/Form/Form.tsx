@@ -74,8 +74,65 @@ class Form extends Component<IProps, IState> {
     this.setState({ [key]: value } as State);
   }
 
+  validationNameAndSurname(value: string) {
+    const regexp = /^[a-z]{3,15}$/i;
+    return regexp.test(value) ? '' : 'Field must consist of 3 - 15 English letters';
+  }
+
+  validationEmail(value: string) {
+    const regexp = /^[0-9a-z_\-.]{3,15}@[a-z]{3,5}\.[a-z]{2,4}$/i;
+    return regexp.test(value) ? '' : 'Email must consist of 0-9, a-z, _, -, @ symbols';
+  }
+
+  validationBirt(value: string) {
+    return value === '' ? 'Please choose a date' : '';
+  }
+
+  validationCountry(value: string) {
+    return value === '' ? 'Please choose a country' : '';
+  }
+
+  validationZipcode(value: string) {
+    const regexp = /^\d{5,6}$/;
+    return regexp.test(value) ? '' : 'Field must consist of 5 or 6 figures';
+  }
+
+  validationPic(len: number) {
+    return len === 0 ? 'Please upload a picture' : '';
+  }
+
   validationAll() {
-    return true;
+    const resValidName = this.validationNameAndSurname(this.nameRef.current?.value as string);
+    const resValidSurname = this.validationNameAndSurname(this.surnameRef.current?.value as string);
+    const resValidEmail = this.validationEmail(this.emailRef.current?.value as string);
+    const resValidBirt = this.validationBirt(this.birtRef.current?.value as string);
+    const resValidCountry = this.validationCountry(this.countryRef.current?.value as string);
+    const resValidZipcode = this.validationZipcode(this.zipcodeRef.current?.value as string);
+    const len = this.picRef.current?.files?.length as number;
+    const resValidPic = this.validationPic(len);
+
+    if (
+      resValidName === '' &&
+      resValidSurname === '' &&
+      resValidEmail === '' &&
+      resValidBirt === '' &&
+      resValidCountry === '' &&
+      resValidZipcode === '' &&
+      resValidPic === ''
+    ) {
+      return true;
+    }
+
+    this.setState({
+      nameErr: resValidName,
+      surnameErr: resValidSurname,
+      emailErr: resValidEmail,
+      birthdayErr: resValidBirt,
+      countryErr: resValidCountry,
+      zipcodeErr: resValidZipcode,
+      picErr: resValidPic,
+    });
+    return false;
   }
 
   showNotification() {}
