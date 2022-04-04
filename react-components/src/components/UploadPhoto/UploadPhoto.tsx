@@ -30,6 +30,7 @@ class UploadPhoto extends Component<IProps> {
           type="file"
           accept=".png, .jpg, .jpeg"
           onChange={this.handleChange}
+          data-testid="uploadphoto"
         />
 
         {this.props.textErr !== '' && (
