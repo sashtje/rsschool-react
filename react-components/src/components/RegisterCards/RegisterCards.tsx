@@ -11,33 +11,6 @@ interface IProps {
   className?: string;
 }
 
-/* const registercards = [
-  {
-    id: 1,
-    pic: './img/photo_1.png',
-    name: 'Name',
-    surname: 'Surname',
-    email: 'Email',
-    birthday: '21.03.1905',
-    country: 'Algeria',
-    zipcode: '12345',
-    gender: 'F',
-    news: true,
-  },
-  {
-    id: new Date().getTime(),
-    pic: './img/photo_2.png',
-    name: 'Name',
-    surname: 'Surname',
-    email: 'Email',
-    birthday: '21.03.1905',
-    country: 'Algeria',
-    zipcode: '12345',
-    gender: 'M',
-    news: false,
-  },
-]; */
-
 class RegisterCards extends Component<IProps> {
   returnClass = () => {
     return this.props.className ? `registercards ${this.props.className}` : 'registercards';
@@ -45,7 +18,7 @@ class RegisterCards extends Component<IProps> {
 
   render() {
     return (
-      <div className={this.returnClass()}>
+      <div data-testid="regcards-container" className={this.returnClass()}>
         {this.props.cards.map((card) => (
           <RegisterCard card={card} key={card.id} />
         ))}
