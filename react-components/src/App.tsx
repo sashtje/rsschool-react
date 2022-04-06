@@ -9,15 +9,19 @@ import Layout from './components/Layout';
 
 import './App.scss';
 
+import { routes } from './router';
+
 class App extends React.Component {
   render() {
     return (
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Main />} />
-          <Route path="about" element={<About />} />
-          <Route path="form" element={<FormPage />} />
-          <Route path="404" element={<Page404 />} />
+
+          {routes.map((route, index) => (
+            <Route key={index} path={route.path} element={<route.element />} />
+          ))}
+
           <Route path="*" element={<Navigate to="/404" replace />} />
         </Route>
       </Routes>
