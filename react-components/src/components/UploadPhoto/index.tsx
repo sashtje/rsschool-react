@@ -6,9 +6,9 @@ import { IProps } from './types';
 
 class UploadPhoto extends Component<IProps> {
   handleChange = () => {
-    const { textErr, name, errorReset, checkSubmitBtn } = this.props;
+    const { textError, name, errorReset, checkSubmitBtn } = this.props;
 
-    if (textErr !== '') {
+    if (textError !== '') {
       errorReset(`${name}Err`);
     }
 
@@ -16,10 +16,12 @@ class UploadPhoto extends Component<IProps> {
   };
 
   render() {
+    const { picRef, textError } = this.props;
+
     return (
       <div className="uploadphoto">
         <input
-          ref={this.props.picRef}
+          ref={picRef}
           className="uploadphoto__input"
           type="file"
           accept=".png, .jpg, .jpeg"
@@ -27,9 +29,7 @@ class UploadPhoto extends Component<IProps> {
           data-testid="uploadphoto"
         />
 
-        {this.props.textErr !== '' && (
-          <div className="uploadphoto__validation">{this.props.textErr}</div>
-        )}
+        {textError !== '' && <div className="uploadphoto__validation">{textError}</div>}
       </div>
     );
   }
