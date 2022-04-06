@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component, ReactEventHandler } from 'react';
 import { FcSearch } from 'react-icons/fc';
 
 import './styles.scss';
@@ -28,6 +28,12 @@ class SearchBar extends Component<IProps> {
     window.removeEventListener('beforeunload', this.saveSearchQuery);
   }
 
+  handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const { setSearch } = this.props;
+
+    setSearch((e.target as HTMLInputElement).value);
+  };
+
   render() {
     const { search, setSearch } = this.props;
 
@@ -41,9 +47,7 @@ class SearchBar extends Component<IProps> {
           autoFocus
           type="search"
           value={search}
-          onChange={(e) => {
-            setSearch(e.target.value);
-          }}
+          onChange={this.handleChange}
         />
       </div>
     );
