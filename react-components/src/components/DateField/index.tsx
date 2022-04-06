@@ -8,9 +8,9 @@ import IProps from './types';
 
 class DateField extends Component<IProps> {
   handleChange = () => {
-    const { textErr, name, errorReset, checkSubmitBtn } = this.props;
+    const { textError, name, errorReset, checkSubmitBtn } = this.props;
 
-    if (textErr !== '') {
+    if (textError !== '') {
       errorReset(`${name}Err`);
     }
 
@@ -18,21 +18,21 @@ class DateField extends Component<IProps> {
   };
 
   render() {
+    const { label, dateRef, textError } = this.props;
+
     return (
       <div className="datefield">
         <Label>
-          {this.props.label}
+          {label}
           <input
-            ref={this.props.dateRef}
+            ref={dateRef}
             className="datefield__input"
             type="date"
             onChange={this.handleChange}
           />
         </Label>
 
-        {this.props.textErr !== '' && (
-          <div className="datefield__validation">{this.props.textErr}</div>
-        )}
+        {textError !== '' && <div className="datefield__validation">{textError}</div>}
       </div>
     );
   }
