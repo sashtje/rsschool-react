@@ -66,8 +66,9 @@ class Form extends Component<IProps, IState> {
     );
     const validationCountryErrorText = val.validationCountry(this.getInputValue(this.countryRef));
     const validationZipcodeErrorText = val.validationZipcode(this.getInputValue(this.zipcodeRef));
-    const length = this.pictureRef.current?.files?.length as number;
-    const validationPictureErrorText = val.validationPicture(length);
+    const validationPictureErrorText = val.validationPicture(
+      this.pictureRef.current?.files as FileList
+    );
 
     if (
       validationNameErrorText === '' &&

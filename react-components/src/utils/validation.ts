@@ -31,6 +31,20 @@ export function validationZipcode(value: string) {
   return regexp.test(value) ? '' : 'Field must consist of 5 or 6 figures';
 }
 
-export function validationPicture(len: number) {
-  return len === 0 ? 'Please upload a picture' : '';
+export function validationPicture(files: FileList) {
+  if (files.length === 0) {
+    return 'Please upload a picture';
+  }
+
+  const { type, size } = files[0];
+
+  if (type !== 'image/png' && type !== 'image/jpg' && type !== 'image/jpeg') {
+    return 'Picture should have .png, .jpg or .jpeg extensions';
+  }
+
+  if (size > 100000) {
+    return 'Max file size = 100 KB';
+  }
+
+  return '';
 }
