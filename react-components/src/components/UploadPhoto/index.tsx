@@ -14,7 +14,6 @@ class UploadPhoto extends Component<IProps> {
           ref={pictureRef}
           className="uploadphoto__input"
           type="file"
-          accept=".png, .jpg, .jpeg"
           onChange={() => handleChangeInput(`${name}Error`, textError)}
           data-testid="uploadphoto"
         />
