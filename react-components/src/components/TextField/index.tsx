@@ -15,18 +15,8 @@ class TextField extends Component<IProps> {
     }
   }
 
-  handleChange = () => {
-    const { textError, name, errorReset, checkSubmitBtn } = this.props;
-
-    if (textError !== '') {
-      errorReset(`${name}Error`);
-    }
-
-    checkSubmitBtn();
-  };
-
   render() {
-    const { label, inputRef, textError } = this.props;
+    const { label, inputRef, textError, name, handleChangeInput } = this.props;
 
     return (
       <div className="textfield">
@@ -36,7 +26,7 @@ class TextField extends Component<IProps> {
             ref={inputRef}
             className="textfield__input"
             type="text"
-            onChange={this.handleChange}
+            onChange={() => handleChangeInput(`${name}Error`, textError)}
           />
         </Label>
 

@@ -18,7 +18,7 @@ test('Check render of RegisterCardList component with cards array and with class
       cards={[
         {
           id: 1,
-          pic: './img/photo_1.png',
+          picture: './img/photo_1.png',
           name: 'Name',
           surname: 'Surname',
           email: 'Email',
@@ -30,7 +30,7 @@ test('Check render of RegisterCardList component with cards array and with class
         },
         {
           id: new Date().getTime(),
-          pic: './img/photo_2.png',
+          picture: './img/photo_2.png',
           name: 'Name',
           surname: 'Surname',
           email: 'Email',

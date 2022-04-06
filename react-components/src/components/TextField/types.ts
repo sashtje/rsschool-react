@@ -3,7 +3,6 @@ export interface IProps {
   inputRef: React.RefObject<HTMLInputElement>;
   textError: string;
   name: string;
-  errorReset: (key: string) => void;
-  checkSubmitBtn: () => void;
+  handleChangeInput: (nameError: string, textError: string) => void;
   autofocus?: boolean;
 }

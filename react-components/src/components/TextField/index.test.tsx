@@ -9,8 +9,7 @@ test('Check handleChange of DateField component with error', () => {
   const inputRef: React.RefObject<HTMLInputElement> = React.createRef();
   const textError = 'Please choose a date';
   const name = 'birthday';
-  const errorReset = jest.fn();
-  const checkSubmitBtn = jest.fn();
+  const handleChangeInput = jest.fn();
 
   render(
     <TextField
@@ -18,8 +17,7 @@ test('Check handleChange of DateField component with error', () => {
       inputRef={inputRef}
       textError={textError}
       name={name}
-      errorReset={errorReset}
-      checkSubmitBtn={checkSubmitBtn}
+      handleChangeInput={handleChangeInput}
     />
   );
 
@@ -34,8 +32,7 @@ test('Check handleChange of DateField component with error', () => {
 
   userEvent.type(textInput, 'ddd');
   expect(textInput.value).toBe('ddd');
-  expect(errorReset).toHaveBeenCalledTimes(3);
-  expect(checkSubmitBtn).toBeCalledTimes(3);
+  expect(handleChangeInput).toHaveBeenCalledTimes(3);
 });
 
 test('Check handleChange of DateField component without error', () => {
@@ -43,8 +40,7 @@ test('Check handleChange of DateField component without error', () => {
   const inputRef: React.RefObject<HTMLInputElement> = React.createRef();
   const textError = '';
   const name = 'birthday';
-  const errorReset = jest.fn();
-  const checkSubmitBtn = jest.fn();
+  const handleChangeInput = jest.fn();
 
   render(
     <TextField
@@ -52,8 +48,7 @@ test('Check handleChange of DateField component without error', () => {
       inputRef={inputRef}
       textError={textError}
       name={name}
-      errorReset={errorReset}
-      checkSubmitBtn={checkSubmitBtn}
+      handleChangeInput={handleChangeInput}
       autofocus
     />
   );
@@ -69,6 +64,5 @@ test('Check handleChange of DateField component without error', () => {
 
   userEvent.type(textInput, 'ddd');
   expect(textInput.value).toBe('ddd');
-  expect(errorReset).toHaveBeenCalledTimes(0);
-  expect(checkSubmitBtn).toBeCalledTimes(3);
+  expect(handleChangeInput).toHaveBeenCalledTimes(3);
 });

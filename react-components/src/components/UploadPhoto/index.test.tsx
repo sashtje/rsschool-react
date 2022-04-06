@@ -8,16 +8,14 @@ test('Check handleChange of DateField component with error', () => {
   const pictureRef: React.RefObject<HTMLInputElement> = React.createRef();
   const textError = 'Please choose a date';
   const name = 'birthday';
-  const errorReset = jest.fn();
-  const checkSubmitBtn = jest.fn();
+  const handleChangeInput = jest.fn();
 
   render(
     <UploadPhoto
       pictureRef={pictureRef}
       textError={textError}
       name={name}
-      errorReset={errorReset}
-      checkSubmitBtn={checkSubmitBtn}
+      handleChangeInput={handleChangeInput}
     />
   );
 
@@ -35,24 +33,21 @@ test('Check handleChange of DateField component with error', () => {
   expect(pictureInput?.files![0]).toStrictEqual(file);
   expect(pictureInput.files).toHaveLength(1);
 
-  expect(errorReset).toHaveBeenCalledTimes(1);
-  expect(checkSubmitBtn).toBeCalledTimes(1);
+  expect(handleChangeInput).toHaveBeenCalledTimes(1);
 });
 
 test('Check handleChange of DateField component without error', () => {
   const pictureRef: React.RefObject<HTMLInputElement> = React.createRef();
   const textError = '';
   const name = 'birthday';
-  const errorReset = jest.fn();
-  const checkSubmitBtn = jest.fn();
+  const handleChangeInput = jest.fn();
 
   render(
     <UploadPhoto
       pictureRef={pictureRef}
       textError={textError}
       name={name}
-      errorReset={errorReset}
-      checkSubmitBtn={checkSubmitBtn}
+      handleChangeInput={handleChangeInput}
     />
   );
 
@@ -69,6 +64,5 @@ test('Check handleChange of DateField component without error', () => {
   userEvent.upload(pictureInput, file);
   expect(pictureInput?.files![0]).toStrictEqual(file);
   expect(pictureInput.files).toHaveLength(1);
-  expect(errorReset).toHaveBeenCalledTimes(0);
-  expect(checkSubmitBtn).toBeCalledTimes(1);
+  expect(handleChangeInput).toHaveBeenCalledTimes(1);
 });

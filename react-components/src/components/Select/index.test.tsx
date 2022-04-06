@@ -10,8 +10,7 @@ test('Check handleChange of Select component with error', () => {
   const selectRef: React.RefObject<HTMLSelectElement> = React.createRef();
   const textError = 'Please choose a country';
   const name = 'birthday';
-  const errorReset = jest.fn();
-  const checkSubmitBtn = jest.fn();
+  const handleChangeInput = jest.fn();
 
   render(
     <Select
@@ -20,8 +19,7 @@ test('Check handleChange of Select component with error', () => {
       selectRef={selectRef}
       textError={textError}
       name={name}
-      errorReset={errorReset}
-      checkSubmitBtn={checkSubmitBtn}
+      handleChangeInput={handleChangeInput}
     />
   );
 
@@ -35,8 +33,7 @@ test('Check handleChange of Select component with error', () => {
 
   userEvent.selectOptions(select, 'Germany');
   expect(select.value).toBe('Germany');
-  expect(errorReset).toHaveBeenCalledTimes(1);
-  expect(checkSubmitBtn).toBeCalledTimes(1);
+  expect(handleChangeInput).toHaveBeenCalledTimes(1);
 });
 
 test('Check handleChange of Select component without error', () => {
@@ -45,8 +42,7 @@ test('Check handleChange of Select component without error', () => {
   const selectRef: React.RefObject<HTMLSelectElement> = React.createRef();
   const textError = '';
   const name = 'birthday';
-  const errorReset = jest.fn();
-  const checkSubmitBtn = jest.fn();
+  const handleChangeInput = jest.fn();
 
   render(
     <Select
@@ -55,8 +51,7 @@ test('Check handleChange of Select component without error', () => {
       selectRef={selectRef}
       textError={textError}
       name={name}
-      errorReset={errorReset}
-      checkSubmitBtn={checkSubmitBtn}
+      handleChangeInput={handleChangeInput}
     />
   );
 
@@ -70,6 +65,5 @@ test('Check handleChange of Select component without error', () => {
 
   userEvent.selectOptions(select, 'Germany');
   expect(select.value).toBe('Germany');
-  expect(errorReset).toHaveBeenCalledTimes(0);
-  expect(checkSubmitBtn).toBeCalledTimes(1);
+  expect(handleChangeInput).toHaveBeenCalledTimes(1);
 });

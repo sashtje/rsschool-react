@@ -1,6 +1,6 @@
 export interface IRegisterCardItem {
   id: number;
-  pic: string;
+  picture: string;
   name: string;
   surname: string;
   email: string;

@@ -9,8 +9,7 @@ test('Check handleChange of DateField component with error', () => {
   const dateRef: React.RefObject<HTMLInputElement> = React.createRef();
   const textError = 'Please choose a date';
   const name = 'birthday';
-  const errorReset = jest.fn();
-  const checkSubmitBtn = jest.fn();
+  const handleChangeInput = jest.fn();
 
   render(
     <DateField
@@ -18,8 +17,7 @@ test('Check handleChange of DateField component with error', () => {
       dateRef={dateRef}
       textError={textError}
       name={name}
-      errorReset={errorReset}
-      checkSubmitBtn={checkSubmitBtn}
+      handleChangeInput={handleChangeInput}
     />
   );
 
@@ -33,8 +31,7 @@ test('Check handleChange of DateField component with error', () => {
 
   userEvent.type(dateInput, '2020-03-03');
   expect(dateInput.value).toBe('2020-03-03');
-  expect(errorReset).toHaveBeenCalledTimes(1);
-  expect(checkSubmitBtn).toBeCalledTimes(1);
+  expect(handleChangeInput).toHaveBeenCalledTimes(1);
 });
 
 test('Check handleChange of DateField component without error', () => {
@@ -42,8 +39,7 @@ test('Check handleChange of DateField component without error', () => {
   const dateRef: React.RefObject<HTMLInputElement> = React.createRef();
   const textError = '';
   const name = 'birthday';
-  const errorReset = jest.fn();
-  const checkSubmitBtn = jest.fn();
+  const handleChangeInput = jest.fn();
 
   render(
     <DateField
@@ -51,8 +47,7 @@ test('Check handleChange of DateField component without error', () => {
       dateRef={dateRef}
       textError={textError}
       name={name}
-      errorReset={errorReset}
-      checkSubmitBtn={checkSubmitBtn}
+      handleChangeInput={handleChangeInput}
     />
   );
 
@@ -66,6 +61,5 @@ test('Check handleChange of DateField component without error', () => {
 
   userEvent.type(dateInput, '2020-03-03');
   expect(dateInput.value).toBe('2020-03-03');
-  expect(errorReset).toHaveBeenCalledTimes(0);
-  expect(checkSubmitBtn).toBeCalledTimes(1);
+  expect(handleChangeInput).toHaveBeenCalledTimes(1);
 });

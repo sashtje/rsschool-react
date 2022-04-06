@@ -8,11 +8,12 @@ import { IProps } from './types';
 
 class RegisterCardItem extends Component<IProps> {
   render() {
-    const { pic, name, surname, email, birthday, country, zipcode, gender, news } = this.props.card;
+    const { picture, name, surname, email, birthday, country, zipcode, gender, news } =
+      this.props.card;
 
     return (
       <div className="registercard">
-        <div className="registercard__pic" style={{ backgroundImage: `url("${pic}")` }}></div>
+        <div className="registercard__pic" style={{ backgroundImage: `url("${picture}")` }}></div>
 
         {gender === 'F' ? (
           <div className="registercard__gender registercard__gender_is_female">

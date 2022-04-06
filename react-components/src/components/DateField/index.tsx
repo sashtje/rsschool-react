@@ -7,18 +7,8 @@ import './styles.scss';
 import IProps from './types';
 
 class DateField extends Component<IProps> {
-  handleChange = () => {
-    const { textError, name, errorReset, checkSubmitBtn } = this.props;
-
-    if (textError !== '') {
-      errorReset(`${name}Error`);
-    }
-
-    checkSubmitBtn();
-  };
-
   render() {
-    const { label, dateRef, textError } = this.props;
+    const { label, dateRef, textError, name, handleChangeInput } = this.props;
 
     return (
       <div className="datefield">
@@ -28,7 +18,7 @@ class DateField extends Component<IProps> {
             ref={dateRef}
             className="datefield__input"
             type="date"
-            onChange={this.handleChange}
+            onChange={() => handleChangeInput(`${name}Error`, textError)}
           />
         </Label>
 

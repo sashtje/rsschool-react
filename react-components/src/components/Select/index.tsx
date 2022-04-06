@@ -7,18 +7,8 @@ import './styles.scss';
 import { IProps } from './types';
 
 class Select extends Component<IProps> {
-  handleChange = () => {
-    const { textError, name, errorReset, checkSubmitBtn } = this.props;
-
-    if (textError !== '') {
-      errorReset(`${name}Error`);
-    }
-
-    checkSubmitBtn();
-  };
-
   render() {
-    const { label, selectRef, options, textError } = this.props;
+    const { label, selectRef, options, textError, name, handleChangeInput } = this.props;
 
     return (
       <div className="selectfield">
@@ -28,7 +18,7 @@ class Select extends Component<IProps> {
             className="selectfield__select"
             defaultValue=""
             ref={selectRef}
-            onChange={this.handleChange}
+            onChange={() => handleChangeInput(`${name}Error`, textError)}
           >
             <option key={-1} disabled></option>
             {options.map((option, index) => (

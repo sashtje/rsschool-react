@@ -18,3 +18,5 @@ export interface IState {
 export type State = {
   [key in keyof IState]: string;
 };
+
+export type InputRefTypes = React.RefObject<HTMLInputElement> | React.RefObject<HTMLSelectElement>;
