@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as val from '../../utils/validation';
+import { validationForm, isObjectNotFromEmptyStrings } from '../../utils/validation';
 
 import TextField from '../TextField';
 import DateField from '../DateField';
@@ -55,62 +55,40 @@ class Form extends Component<IProps, IState> {
     return inputRef.current?.value as string;
   };
 
-  validationAll() {
-    const validationNameErrorText = val.validationNameAndSurname(this.getInputValue(this.nameRef));
-    const validationSurnameErrorText = val.validationNameAndSurname(
-      this.getInputValue(this.surnameRef)
-    );
-    const validationEmailErrorText = val.validationEmail(this.getInputValue(this.emailRef));
-    const validationBirthdayErrorText = val.validationBirthday(
-      this.getInputValue(this.birthdayRef)
-    );
-    const validationCountryErrorText = val.validationCountry(this.getInputValue(this.countryRef));
-    const validationZipcodeErrorText = val.validationZipcode(this.getInputValue(this.zipcodeRef));
-    const validationPictureErrorText = val.validationPicture(
-      this.pictureRef.current?.files as FileList
-    );
-
-    if (
-      validationNameErrorText === '' &&
-      validationSurnameErrorText === '' &&
-      validationEmailErrorText === '' &&
-      validationBirthdayErrorText === '' &&
-      validationCountryErrorText === '' &&
-      validationZipcodeErrorText === '' &&
-      validationPictureErrorText === ''
-    ) {
-      return true;
-    }
-
-    this.setState({
-      nameError: validationNameErrorText,
-      surnameError: validationSurnameErrorText,
-      emailError: validationEmailErrorText,
-      birthdayError: validationBirthdayErrorText,
-      countryError: validationCountryErrorText,
-      zipcodeError: validationZipcodeErrorText,
-      pictureError: validationPictureErrorText,
-    });
-
-    return false;
-  }
-
   handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (this.validationAll()) {
-      const file = this.pictureRef.current?.files![0];
+    const nameValue = this.getInputValue(this.nameRef);
+    const surnameValue = this.getInputValue(this.surnameRef);
+    const emailValue = this.getInputValue(this.emailRef);
+    const birthdayValue = this.getInputValue(this.birthdayRef);
+    const countryValue = this.getInputValue(this.countryRef);
+    const zipcodeValue = this.getInputValue(this.zipcodeRef);
+    const pictureValue = this.pictureRef.current?.files as FileList;
+
+    const { isValid, validationErrors } = validationForm(
+      nameValue,
+      surnameValue,
+      emailValue,
+      birthdayValue,
+      countryValue,
+      zipcodeValue,
+      pictureValue
+    );
+
+    if (isValid) {
+      const file = pictureValue[0];
       const downFile = URL.createObjectURL(file!);
-      const dateBirth = new Date(this.getInputValue(this.birthdayRef));
+      const dateBirth = new Date(birthdayValue);
       const newCard: IRegisterCardItem = {
         id: new Date().getTime(),
         picture: downFile,
-        name: this.getInputValue(this.nameRef),
-        surname: this.getInputValue(this.surnameRef),
-        email: this.getInputValue(this.emailRef),
+        name: nameValue,
+        surname: surnameValue,
+        email: emailValue,
         birthday: dateBirth.toLocaleDateString(),
-        country: this.getInputValue(this.countryRef),
-        zipcode: this.getInputValue(this.zipcodeRef),
+        country: countryValue,
+        zipcode: zipcodeValue,
         gender: this.genderRef.current?.checked ? 'M' : 'F',
         news: this.newsRef.current?.checked as boolean,
       };
@@ -120,6 +98,8 @@ class Form extends Component<IProps, IState> {
       this.props.showNotification();
 
       this.formRef.current?.reset();
+    } else {
+      this.setState(validationErrors);
     }
 
     this.btnSubmitRef.current!.disabled = true;
@@ -127,14 +107,7 @@ class Form extends Component<IProps, IState> {
   };
 
   checkSubmitBtn = () => {
-    let key: string;
-    let isHasErrors = false;
-    for (key of Object.keys(this.state)) {
-      if (this.state[key as keyof IState] !== '') {
-        isHasErrors = true;
-      }
-    }
-
+    const isHasErrors = isObjectNotFromEmptyStrings(this.state);
     let isEmpty = true;
     if (
       this.getInputValue(this.nameRef) !== '' ||

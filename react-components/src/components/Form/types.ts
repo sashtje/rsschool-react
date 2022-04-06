@@ -20,3 +20,8 @@ export type State = {
 };
 
 export type InputRefTypes = React.RefObject<HTMLInputElement> | React.RefObject<HTMLSelectElement>;
+
+export interface IValidation {
+  isValid: boolean;
+  validationErrors: IState;
+}
