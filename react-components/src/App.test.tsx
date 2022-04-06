@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 
 import App from './App';
 
-import { renderWithRouter } from './testAPI/testapi';
+import { renderWithRouter } from './testAPI';
 
 test('Navigation Test for Router', () => {
   renderWithRouter(<App />);
