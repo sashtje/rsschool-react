@@ -8,11 +8,13 @@ import { IProps } from './types';
 
 class Switcher extends Component<IProps> {
   render() {
+    const { label, switcherRef } = this.props;
+
     return (
       <Label className="label_is_inline-flex">
-        {this.props.label}
+        {label}
         <label className="switcher">
-          <input ref={this.props.switcherRef} className="switcher__input" type="checkbox" />
+          <input ref={switcherRef} className="switcher__input" type="checkbox" />
           <span className="switcher__track">
             <span className="switcher__slider"></span>
           </span>

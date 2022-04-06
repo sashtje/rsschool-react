@@ -18,16 +18,18 @@ class Main extends Component<Record<string, never>, IState> {
   }
 
   render() {
+    const { search } = this.state;
+
     return (
       <main className="home">
         <div className="home__container">
           <SearchBar
-            search={this.state.search}
+            search={search}
             setSearch={(searchStr: string) => {
               this.changeSearch(searchStr);
             }}
           />
-          <Cards className="home__cards" search={this.state.search} />
+          <Cards className="home__cards" search={search} />
         </div>
       </main>
     );

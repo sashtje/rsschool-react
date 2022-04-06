@@ -8,13 +8,17 @@ import { IProps } from './types';
 
 class RegisterCardList extends Component<IProps> {
   returnClass = () => {
-    return this.props.className ? `registercards ${this.props.className}` : 'registercards';
+    const { className } = this.props;
+
+    return className ? `registercards ${className}` : 'registercards';
   };
 
   render() {
+    const { cards } = this.props;
+
     return (
       <div data-testid="regcards-container" className={this.returnClass()}>
-        {this.props.cards.map((card) => (
+        {cards.map((card) => (
           <RegisterCardItem card={card} key={card.id} />
         ))}
       </div>

@@ -8,37 +8,39 @@ import { IProps } from './types';
 
 class TextField extends Component<IProps> {
   componentDidMount() {
-    if (this.props.autofocus) {
-      this.props.inputRef.current!.focus();
+    const { autofocus, inputRef } = this.props;
+
+    if (autofocus) {
+      inputRef.current!.focus();
     }
   }
 
   handleChange = () => {
-    const { textErr, name, errorReset, checkSubmitBtn } = this.props;
+    const { textError, name, errorReset, checkSubmitBtn } = this.props;
 
-    if (textErr !== '') {
-      errorReset(`${name}Err`);
+    if (textError !== '') {
+      errorReset(`${name}Error`);
     }
 
     checkSubmitBtn();
   };
 
   render() {
+    const { label, inputRef, textError } = this.props;
+
     return (
       <div className="textfield">
         <Label>
-          {this.props.label}
+          {label}
           <input
-            ref={this.props.inputRef}
+            ref={inputRef}
             className="textfield__input"
             type="text"
             onChange={this.handleChange}
           />
         </Label>
 
-        {this.props.textErr !== '' && (
-          <div className="textfield__validation">{this.props.textErr}</div>
-        )}
+        {textError !== '' && <div className="textfield__validation">{textError}</div>}
       </div>
     );
   }

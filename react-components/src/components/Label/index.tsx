@@ -6,11 +6,15 @@ import IProps from './types';
 
 class Label extends Component<IProps> {
   returnClass = () => {
-    return this.props.className ? `label ${this.props.className}` : 'label';
+    const { className } = this.props;
+
+    return className ? `label ${className}` : 'label';
   };
 
   render() {
-    return <label className={this.returnClass()}>{this.props.children}</label>;
+    const { children } = this.props;
+
+    return <label className={this.returnClass()}>{children}</label>;
   }
 }
 

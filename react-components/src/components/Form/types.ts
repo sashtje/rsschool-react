@@ -6,13 +6,13 @@ export interface IProps {
 }
 
 export interface IState {
-  nameErr: string;
-  surnameErr: string;
-  emailErr: string;
-  birthdayErr: string;
-  countryErr: string;
-  zipcodeErr: string;
-  picErr: string;
+  nameError: string;
+  surnameError: string;
+  emailError: string;
+  birthdayError: string;
+  countryError: string;
+  zipcodeError: string;
+  pictureError: string;
 }
 
 export type State = {

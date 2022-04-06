@@ -11,7 +11,7 @@ class DateField extends Component<IProps> {
     const { textError, name, errorReset, checkSubmitBtn } = this.props;
 
     if (textError !== '') {
-      errorReset(`${name}Err`);
+      errorReset(`${name}Error`);
     }
 
     checkSubmitBtn();

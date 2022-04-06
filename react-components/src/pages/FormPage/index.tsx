@@ -1,7 +1,7 @@
 import { Component } from 'react';
 
 import Form from '../../components/Form';
-import RegisterCards from '../../components/RegisterCardList';
+import RegisterCardList from '../../components/RegisterCardList';
 import NotificationWindow from '../../components/NotificationWindow';
 
 import './styles.scss';
@@ -31,7 +31,7 @@ class FormPage extends Component<Record<string, unknown>, IState> {
       <main className="form-page">
         <Form addCard={this.addCard} showNotification={this.showNotification} />
 
-        <RegisterCards cards={cards} className="form-page__register-cards" />
+        <RegisterCardList cards={cards} className="form-page__register-cards" />
 
         {isShowNotification && <NotificationWindow />}
       </main>

@@ -7,7 +7,7 @@ import DateField from '.';
 test('Check handleChange of DateField component with error', () => {
   const label = 'Birthday:';
   const dateRef: React.RefObject<HTMLInputElement> = React.createRef();
-  const textErr = 'Please choose a date';
+  const textError = 'Please choose a date';
   const name = 'birthday';
   const errorReset = jest.fn();
   const checkSubmitBtn = jest.fn();
@@ -16,7 +16,7 @@ test('Check handleChange of DateField component with error', () => {
     <DateField
       label={label}
       dateRef={dateRef}
-      textErr={textErr}
+      textError={textError}
       name={name}
       errorReset={errorReset}
       checkSubmitBtn={checkSubmitBtn}
@@ -40,7 +40,7 @@ test('Check handleChange of DateField component with error', () => {
 test('Check handleChange of DateField component without error', () => {
   const label = 'Birthday:';
   const dateRef: React.RefObject<HTMLInputElement> = React.createRef();
-  const textErr = '';
+  const textError = '';
   const name = 'birthday';
   const errorReset = jest.fn();
   const checkSubmitBtn = jest.fn();
@@ -49,7 +49,7 @@ test('Check handleChange of DateField component without error', () => {
     <DateField
       label={label}
       dateRef={dateRef}
-      textErr={textErr}
+      textError={textError}
       name={name}
       errorReset={errorReset}
       checkSubmitBtn={checkSubmitBtn}

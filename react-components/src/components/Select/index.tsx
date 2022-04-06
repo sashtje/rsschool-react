@@ -8,36 +8,36 @@ import { IProps } from './types';
 
 class Select extends Component<IProps> {
   handleChange = () => {
-    const { textErr, name, errorReset, checkSubmitBtn } = this.props;
+    const { textError, name, errorReset, checkSubmitBtn } = this.props;
 
-    if (textErr !== '') {
-      errorReset(`${name}Err`);
+    if (textError !== '') {
+      errorReset(`${name}Error`);
     }
 
     checkSubmitBtn();
   };
 
   render() {
+    const { label, selectRef, options, textError } = this.props;
+
     return (
       <div className="selectfield">
         <Label>
-          {this.props.label}
+          {label}
           <select
             className="selectfield__select"
             defaultValue=""
-            ref={this.props.selectRef}
+            ref={selectRef}
             onChange={this.handleChange}
           >
             <option key={-1} disabled></option>
-            {this.props.options.map((option, ind) => (
-              <option key={ind}>{option}</option>
+            {options.map((option, index) => (
+              <option key={index}>{option}</option>
             ))}
           </select>
         </Label>
 
-        {this.props.textErr !== '' && (
-          <div className="selectfield__validation">{this.props.textErr}</div>
-        )}
+        {textError !== '' && <div className="selectfield__validation">{textError}</div>}
       </div>
     );
   }

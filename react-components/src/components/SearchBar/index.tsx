@@ -29,6 +29,8 @@ class SearchBar extends Component<IProps> {
   }
 
   render() {
+    const { search, setSearch } = this.props;
+
     return (
       <div className="searchbar">
         <div className="searchbar__icon">
@@ -38,9 +40,9 @@ class SearchBar extends Component<IProps> {
           className="searchbar__input"
           autoFocus
           type="search"
-          value={this.props.search}
+          value={search}
           onChange={(e) => {
-            this.props.setSearch(e.target.value);
+            setSearch(e.target.value);
           }}
         />
       </div>

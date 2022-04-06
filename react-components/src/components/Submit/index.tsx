@@ -6,12 +6,16 @@ import { IProps } from './types';
 
 class Submit extends Component<IProps> {
   componentDidMount() {
-    (this.props.refBtn.current as HTMLButtonElement).disabled = true;
+    const { refBtn } = this.props;
+
+    (refBtn.current as HTMLButtonElement).disabled = true;
   }
 
   render() {
+    const { refBtn } = this.props;
+
     return (
-      <button ref={this.props.refBtn} className="submit">
+      <button ref={refBtn} className="submit">
         Submit
       </button>
     );

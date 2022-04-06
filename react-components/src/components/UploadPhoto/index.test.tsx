@@ -5,25 +5,25 @@ import userEvent from '@testing-library/user-event';
 import UploadPhoto from '.';
 
 test('Check handleChange of DateField component with error', () => {
-  const picRef: React.RefObject<HTMLInputElement> = React.createRef();
-  const textErr = 'Please choose a date';
+  const pictureRef: React.RefObject<HTMLInputElement> = React.createRef();
+  const textError = 'Please choose a date';
   const name = 'birthday';
   const errorReset = jest.fn();
   const checkSubmitBtn = jest.fn();
 
   render(
     <UploadPhoto
-      picRef={picRef}
-      textErr={textErr}
+      pictureRef={pictureRef}
+      textError={textError}
       name={name}
       errorReset={errorReset}
       checkSubmitBtn={checkSubmitBtn}
     />
   );
 
-  const picInput = screen.getByTestId('uploadphoto') as HTMLInputElement;
+  const pictureInput = screen.getByTestId('uploadphoto') as HTMLInputElement;
 
-  expect(picInput).toBeInTheDocument();
+  expect(pictureInput).toBeInTheDocument();
 
   const errorBlock = screen.queryByText(/Please choose a date/i);
 
@@ -31,34 +31,34 @@ test('Check handleChange of DateField component with error', () => {
 
   const file = new File(['hello'], 'hello.png', { type: 'image/png' });
 
-  userEvent.upload(picInput, file);
-  expect(picInput?.files![0]).toStrictEqual(file);
-  expect(picInput.files).toHaveLength(1);
+  userEvent.upload(pictureInput, file);
+  expect(pictureInput?.files![0]).toStrictEqual(file);
+  expect(pictureInput.files).toHaveLength(1);
 
   expect(errorReset).toHaveBeenCalledTimes(1);
   expect(checkSubmitBtn).toBeCalledTimes(1);
 });
 
 test('Check handleChange of DateField component without error', () => {
-  const picRef: React.RefObject<HTMLInputElement> = React.createRef();
-  const textErr = '';
+  const pictureRef: React.RefObject<HTMLInputElement> = React.createRef();
+  const textError = '';
   const name = 'birthday';
   const errorReset = jest.fn();
   const checkSubmitBtn = jest.fn();
 
   render(
     <UploadPhoto
-      picRef={picRef}
-      textErr={textErr}
+      pictureRef={pictureRef}
+      textError={textError}
       name={name}
       errorReset={errorReset}
       checkSubmitBtn={checkSubmitBtn}
     />
   );
 
-  const picInput = screen.getByTestId('uploadphoto') as HTMLInputElement;
+  const pictureInput = screen.getByTestId('uploadphoto') as HTMLInputElement;
 
-  expect(picInput).toBeInTheDocument();
+  expect(pictureInput).toBeInTheDocument();
 
   const errorBlock = screen.queryByText(/Please choose a date/i);
 
@@ -66,9 +66,9 @@ test('Check handleChange of DateField component without error', () => {
 
   const file = new File(['hello'], 'hello.png', { type: 'image/png' });
 
-  userEvent.upload(picInput, file);
-  expect(picInput?.files![0]).toStrictEqual(file);
-  expect(picInput.files).toHaveLength(1);
+  userEvent.upload(pictureInput, file);
+  expect(pictureInput?.files![0]).toStrictEqual(file);
+  expect(pictureInput.files).toHaveLength(1);
   expect(errorReset).toHaveBeenCalledTimes(0);
   expect(checkSubmitBtn).toBeCalledTimes(1);
 });

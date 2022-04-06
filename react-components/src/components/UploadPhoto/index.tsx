@@ -9,19 +9,19 @@ class UploadPhoto extends Component<IProps> {
     const { textError, name, errorReset, checkSubmitBtn } = this.props;
 
     if (textError !== '') {
-      errorReset(`${name}Err`);
+      errorReset(`${name}Error`);
     }
 
     checkSubmitBtn();
   };
 
   render() {
-    const { picRef, textError } = this.props;
+    const { pictureRef, textError } = this.props;
 
     return (
       <div className="uploadphoto">
         <input
-          ref={picRef}
+          ref={pictureRef}
           className="uploadphoto__input"
           type="file"
           accept=".png, .jpg, .jpeg"
