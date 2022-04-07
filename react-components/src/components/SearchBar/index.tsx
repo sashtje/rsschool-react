@@ -35,7 +35,7 @@ class SearchBar extends Component<IProps> {
   };
 
   render() {
-    const { search, setSearch } = this.props;
+    const { search } = this.props;
 
     return (
       <div className="searchbar">

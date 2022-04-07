@@ -17,9 +17,9 @@ class Main extends Component<Record<string, never>, IState> {
     e.preventDefault();
   };
 
-  changeSearch(searchStr: string) {
+  changeSearch = (searchStr: string) => {
     this.setState({ search: searchStr });
-  }
+  };
 
   render() {
     const { search } = this.state;
@@ -28,12 +28,7 @@ class Main extends Component<Record<string, never>, IState> {
       <main className="home">
         <div className="home__container">
           <form action="" className="home__form" onSubmit={this.handleSubmit}>
-            <SearchBar
-              search={search}
-              setSearch={(searchStr: string) => {
-                this.changeSearch(searchStr);
-              }}
-            />
+            <SearchBar search={search} setSearch={this.changeSearch} />
           </form>
 
           <CardList className="home__cards" search={search} />
