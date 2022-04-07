@@ -50,7 +50,7 @@ class Main extends Component<Record<string, never>, IState> {
           {isLoading ? (
             <Loader />
           ) : textError !== '' ? (
-            <div>{textError}</div>
+            <div className="home__error">{textError}</div>
           ) : (
             <CardList data={data} />
           )}

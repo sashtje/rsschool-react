@@ -8,4 +8,10 @@
   &__form {
     margin-bottom: 30px;
   }
+
+  &__error {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #ff0000;
+  }
 }
