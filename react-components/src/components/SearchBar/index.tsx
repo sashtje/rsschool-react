@@ -1,4 +1,4 @@
-import React, { Component, ReactEventHandler } from 'react';
+import React, { Component } from 'react';
 import { FcSearch } from 'react-icons/fc';
 
 import './styles.scss';
@@ -7,11 +7,14 @@ import { IProps } from './types';
 
 class SearchBar extends Component<IProps> {
   initSearchBar() {
-    if (localStorage.getItem('searchbar') as string) {
-      const searchQuery = localStorage.getItem('searchbar') as string;
+    let searchQuery = '';
+    const { setSearch } = this.props;
 
-      this.props.setSearch(searchQuery);
+    if (localStorage.getItem('searchbar') as string) {
+      searchQuery = localStorage.getItem('searchbar') as string;
     }
+
+    setSearch(searchQuery, true);
   }
 
   saveSearchQuery = () => {

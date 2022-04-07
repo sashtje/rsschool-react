@@ -6,11 +6,9 @@ import './styles.scss';
 
 import IProps from './types';
 
-import { data } from '../../model/model';
-
 class CardList extends Component<IProps> {
   render() {
-    const { className } = this.props;
+    const { className, data } = this.props;
 
     return (
       <div className={className ? className + ' cards' : 'cards'} data-testid="cards">

@@ -2,27 +2,43 @@ import React, { Component } from 'react';
 
 import SearchBar from '../../components/SearchBar';
 import CardList from '../../components/CardList';
+import Loader from '../../components/Loader';
 
 import './styles.scss';
 
 import { IState } from './types';
 
 class Main extends Component<Record<string, never>, IState> {
-  constructor(props: Record<string, never>) {
-    super(props);
-    this.state = { search: '' };
-  }
+  state = { search: '', isLoading: false, textError: 'dfdfdd', data: [] };
+
+  loadServerData = async (searchStr: string) => {
+    this.setState({ isLoading: true }, () =>
+      setTimeout(() => {
+        this.setState({ isLoading: false });
+      }, 1000)
+    );
+
+    /* try {
+    } catch (e) {} */
+  };
 
   handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    const { search } = this.state;
+    this.loadServerData(search);
   };
 
-  changeSearch = (searchStr: string) => {
+  changeSearch = (searchStr: string, loadData = false) => {
     this.setState({ search: searchStr });
+
+    if (loadData) {
+      this.loadServerData(searchStr);
+    }
   };
 
   render() {
-    const { search } = this.state;
+    const { search, isLoading, textError, data } = this.state;
 
     return (
       <main className="home">
@@ -31,7 +47,13 @@ class Main extends Component<Record<string, never>, IState> {
             <SearchBar search={search} setSearch={this.changeSearch} />
           </form>
 
-          <CardList className="home__cards" search={search} />
+          {isLoading ? (
+            <Loader />
+          ) : textError !== '' ? (
+            <div>{textError}</div>
+          ) : (
+            <CardList data={data} />
+          )}
         </div>
       </main>
     );

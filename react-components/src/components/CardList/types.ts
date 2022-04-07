@@ -1,4 +1,6 @@
+import { IData } from '../CardItem/types';
+
 export default interface IProps {
-  search: string;
+  data: IData[];
   className?: string;
 }
