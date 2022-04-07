@@ -1,7 +1,7 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 
 import SearchBar from '../../components/SearchBar';
-import Cards from '../../components/CardList';
+import CardList from '../../components/CardList';
 
 import './styles.scss';
 
@@ -13,6 +13,10 @@ class Main extends Component<Record<string, never>, IState> {
     this.state = { search: '' };
   }
 
+  handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+  };
+
   changeSearch(searchStr: string) {
     this.setState({ search: searchStr });
   }
@@ -23,13 +27,16 @@ class Main extends Component<Record<string, never>, IState> {
     return (
       <main className="home">
         <div className="home__container">
-          <SearchBar
-            search={search}
-            setSearch={(searchStr: string) => {
-              this.changeSearch(searchStr);
-            }}
-          />
-          <Cards className="home__cards" search={search} />
+          <form action="" className="home__form" onSubmit={this.handleSubmit}>
+            <SearchBar
+              search={search}
+              setSearch={(searchStr: string) => {
+                this.changeSearch(searchStr);
+              }}
+            />
+          </form>
+
+          <CardList className="home__cards" search={search} />
         </div>
       </main>
     );
