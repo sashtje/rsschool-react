@@ -1,28 +1,26 @@
 import { Component } from 'react';
 import { AiOutlineEye } from 'react-icons/ai';
+import ModalWindow from '../ModalWindow';
 
 import './styles.scss';
 
-import IProps from './types';
+import { IProps, IState } from './types';
 
-class CardItem extends Component<IProps> {
+class CardItem extends Component<IProps, IState> {
+  state = { isModalWindowShown: false };
+
+  handleClick = () => {
+    this.setState((state) => ({
+      isModalWindowShown: !state.isModalWindowShown,
+    }));
+  };
+
   render() {
-    const {
-      title,
-      description,
-      ownername,
-      datetaken,
-      dateupload,
-      lastupdate,
-      views,
-      tags,
-      latitude,
-      longitude,
-      url,
-    } = this.props.card;
+    const { title, ownername, views, url } = this.props.card;
+    const { isModalWindowShown } = this.state;
 
     return (
-      <section className="card" data-testid="card">
+      <section className="card" data-testid="card" onClick={this.handleClick}>
         <div className="card__photo" style={{ backgroundImage: `url(${url})` }}></div>
         <h2 className="card__country" data-testid="card-title">
           {title}
@@ -37,6 +35,10 @@ class CardItem extends Component<IProps> {
           <AiOutlineEye />
           {views}
         </div>
+
+        {isModalWindowShown && (
+          <ModalWindow closeWindow={this.handleClick} card={this.props.card} />
+        )}
       </section>
     );
   }
