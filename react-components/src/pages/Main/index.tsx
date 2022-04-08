@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { getDefaultPhotos, getPhotosByText } from '../../utils/flickrApi';
 
 import SearchBar from '../../components/SearchBar';
 import CardList from '../../components/CardList';
@@ -6,20 +7,23 @@ import Loader from '../../components/Loader';
 
 import './styles.scss';
 
-import { IState } from './types';
+import { IState, IPhotosData } from './types';
 
 class Main extends Component<Record<string, never>, IState> {
-  state = { search: '', isLoading: false, textError: 'dfdfdd', data: [] };
+  state = { search: '', isLoading: false, textError: '', data: [] };
 
   loadServerData = async (searchStr: string) => {
-    this.setState({ isLoading: true }, () =>
-      setTimeout(() => {
-        this.setState({ isLoading: false });
-      }, 1000)
-    );
+    this.setState({ isLoading: true });
 
-    /* try {
-    } catch (e) {} */
+    let photosData: IPhotosData;
+
+    if (searchStr === '') {
+      photosData = await getDefaultPhotos();
+    } else {
+      photosData = await getPhotosByText(searchStr);
+    }
+
+    this.setState({ isLoading: false, ...photosData });
   };
 
   handleSubmit = (e: React.FormEvent) => {

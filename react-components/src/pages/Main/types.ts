@@ -10,9 +10,22 @@ export interface IData {
   tags?: string;
   latitude?: string;
   longitude?: string;
+  url?: string;
+  url_sq?: string;
+  url_t?: string;
+  url_s?: string;
+  url_q?: string;
+  url_m?: string;
+  url_n?: string;
+  url_z?: string;
+  url_c?: string;
   url_l?: string;
-  height_l?: number;
-  width_l?: number;
+  url_o?: string;
+}
+
+export interface IPhotosData {
+  textError: string;
+  data: IData[];
 }
 
 export interface IState {

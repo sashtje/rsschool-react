@@ -1,4 +1,4 @@
-import { IData } from '../CardItem/types';
+import { IData } from '../../pages/Main/types';
 
 export default interface IProps {
   data: IData[];
