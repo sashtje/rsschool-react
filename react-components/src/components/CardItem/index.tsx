@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { AiOutlineEye } from 'react-icons/ai';
+
 import ModalWindow from '../ModalWindow';
 
 import './styles.scss';
