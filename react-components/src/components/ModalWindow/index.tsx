@@ -20,9 +20,9 @@ class ModalWindow extends Component<IProps> {
   getLocalDateTaken = (date: string) => {
     let dateLocal;
 
-    try {
-      dateLocal = new Date(date).toLocaleString();
-    } catch {
+    dateLocal = new Date(date).toLocaleString();
+
+    if (dateLocal.toString() === 'Invalid Date') {
       dateLocal = date;
     }
 
@@ -46,7 +46,7 @@ class ModalWindow extends Component<IProps> {
 
     return (
       <div className="modalwindow" onClick={this.handleCloseWindow} data-testid="modal-window">
-        <div className="modalwindow__content" onClick={this.stopClick}>
+        <div className="modalwindow__content" onClick={this.stopClick} data-testid="modal-window-content">
           <span className="modalwindow__close-icon" onClick={this.handleCloseWindow}>
             <AiOutlineCloseSquare />
           </span>
