@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 
 import FormPage from '.';
 
-test('Test render of FormPage without errors of Validation', () => {
+test('Test render of FormPage without errors of Validation', async () => {
   render(<FormPage />);
 
   const nameInput = screen.getByLabelText(/^Name:/i) as HTMLInputElement;
@@ -73,9 +73,19 @@ test('Test render of FormPage without errors of Validation', () => {
   userEvent.upload(picInput, file);
   expect(picInput?.files![0]).toStrictEqual(file);
   expect(picInput.files).toHaveLength(1);
+
+  jest.useFakeTimers();
+  jest.spyOn(global, 'setTimeout');
   userEvent.click(btnSubmit);
 
+  const notificationMessage = await screen.findByText(/The data was saved successfully!/i);
+  expect(notificationMessage).toBeInTheDocument();
   expect(containerCards).not.toBeEmptyDOMElement();
+
+  jest.advanceTimersByTime(4000);
+
+  const notMess = screen.queryByText(/The data was saved successfully!/i);
+  expect(notMess).not.toBeInTheDocument();
 });
 
 test('Test render of FormPage with Errors of Validation', () => {
