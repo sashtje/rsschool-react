@@ -10,7 +10,7 @@ function validationEmail(value: string) {
   return regexp.test(value) ? '' : 'Email must consist of 0-9, a-z, _, -, @ symbols';
 }
 
-function validationBirthday(value: string) {
+export function validationBirthday(value: string) {
   if (value === '') {
     return 'Please choose a date';
   }
@@ -33,7 +33,7 @@ function validationZipcode(value: string) {
   return regexp.test(value) ? '' : 'Field must consist of 5 or 6 figures';
 }
 
-function validationPicture(files: FileList) {
+export function validationPicture(files: FileList) {
   if (files.length === 0) {
     return 'Please upload a picture';
   }
