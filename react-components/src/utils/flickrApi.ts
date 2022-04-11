@@ -3,7 +3,7 @@ import { IDataResponse } from './types';
 
 import { KEY, URLS } from '../model/const';
 
-function getDataWithURL(data: IData[]): IData[] {
+export function getDataWithURL(data: IData[]): IData[] {
   data.forEach((item) => {
     for (let i = 0; i < URLS.length; i++) {
       if (item[URLS[i] as keyof IData] !== undefined) {
