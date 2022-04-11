@@ -86,6 +86,9 @@ test('Test render of FormPage without errors of Validation', async () => {
 
   const notMess = screen.queryByText(/The data was saved successfully!/i);
   expect(notMess).not.toBeInTheDocument();
+
+  const male = screen.getByTestId('male');
+  expect(male).toBeInTheDocument();
 });
 
 test('Test render of FormPage with Errors of Validation', () => {

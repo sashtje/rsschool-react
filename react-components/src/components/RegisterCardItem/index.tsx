@@ -16,11 +16,11 @@ class RegisterCardItem extends Component<IProps> {
         <div className="registercard__pic" style={{ backgroundImage: `url("${picture}")` }}></div>
 
         {gender === 'F' ? (
-          <div className="registercard__gender registercard__gender_is_female">
+          <div className="registercard__gender registercard__gender_is_female" data-testid="female">
             <BsGenderFemale />
           </div>
         ) : (
-          <div className="registercard__gender registercard__gender_is_male">
+          <div className="registercard__gender registercard__gender_is_male" data-testid="male">
             <BsGenderMale />
           </div>
         )}
