@@ -22,7 +22,11 @@ class CardItem extends Component<IProps, IState> {
 
     return (
       <section className="card" data-testid="card" onClick={this.handleClick}>
-        <div className="card__photo" style={{ backgroundImage: `url(${url})` }}></div>
+        <div
+          className="card__photo"
+          data-testid="card-photo"
+          style={{ backgroundImage: `url(${url})` }}
+        ></div>
         <h2 className="card__country" data-testid="card-title">
           {title}
         </h2>
@@ -32,7 +36,7 @@ class CardItem extends Component<IProps, IState> {
             {ownername}
           </span>
         </div>
-        <div className="card__feedback">
+        <div className="card__feedback" data-testid="card-views">
           <AiOutlineEye />
           {views}
         </div>

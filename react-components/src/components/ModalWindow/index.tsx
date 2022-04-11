@@ -45,7 +45,7 @@ class ModalWindow extends Component<IProps> {
     } = this.props.card;
 
     return (
-      <div className="modalwindow" onClick={this.handleCloseWindow}>
+      <div className="modalwindow" onClick={this.handleCloseWindow} data-testid="modal-window">
         <div className="modalwindow__content" onClick={this.stopClick}>
           <span className="modalwindow__close-icon" onClick={this.handleCloseWindow}>
             <AiOutlineCloseSquare />
