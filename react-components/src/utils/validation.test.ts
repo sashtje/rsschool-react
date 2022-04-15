@@ -63,7 +63,7 @@ describe('validationBirthday tests', () => {
     const dateNow = new Date();
     const date20Years = new Date(dateNow.setFullYear(dateNow.getFullYear() - 20));
 
-    const result = validationBirthday(date20Years.toLocaleString());
+    const result = validationBirthday(date20Years.toString());
 
     expect(result).toBe('');
   });
@@ -72,7 +72,7 @@ describe('validationBirthday tests', () => {
     const dateNow = new Date();
     const date105Years = new Date(dateNow.setFullYear(dateNow.getFullYear() - 105));
 
-    const result = validationBirthday(date105Years.toLocaleString());
+    const result = validationBirthday(date105Years.toString());
 
     expect(result).toBe('Your age should be from 18 to 100');
   });
@@ -81,7 +81,7 @@ describe('validationBirthday tests', () => {
     const dateNow = new Date();
     const date5Years = new Date(dateNow.setFullYear(dateNow.getFullYear() - 5));
 
-    const result = validationBirthday(date5Years.toLocaleString());
+    const result = validationBirthday(date5Years.toString());
 
     expect(result).toBe('Your age should be from 18 to 100');
   });
