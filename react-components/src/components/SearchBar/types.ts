@@ -1,4 +1,4 @@
 export interface IProps {
   search: string;
-  setSearch: (searchStr: string, loadData?: boolean) => void;
+  changeSearch: (searchStr: string, loadData?: boolean) => void;
 }
