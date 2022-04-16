@@ -52,7 +52,7 @@ test('test with mock local storage with initial value', () => {
   expect(input).toHaveValue(value);
   userEvent.click(linkAbout);
 
-  expect(setItem).toHaveBeenCalledTimes(1);
+  expect(setItem).toHaveBeenCalledTimes(6);
 
   userEvent.click(linkHome);
   expect(input).toHaveValue(value);
