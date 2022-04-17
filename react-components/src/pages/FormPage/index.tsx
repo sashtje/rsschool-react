@@ -1,5 +1,3 @@
-import { Component } from 'react';
-
 import Form from '../../components/Form';
 import RegisterCardList from '../../components/RegisterCardList';
 import NotificationWindow from '../../components/NotificationWindow';
@@ -7,36 +5,33 @@ import NotificationWindow from '../../components/NotificationWindow';
 import './styles.scss';
 
 import { IRegisterCardItem } from '../../components/RegisterCardItem/types';
-import { IState } from './types';
+import { useState } from 'react';
 
-class FormPage extends Component<Record<string, unknown>, IState> {
-  state = { cards: [], isShowNotification: false };
+const FormPage = () => {
+  const [cards, setCards] = useState<IRegisterCardItem[]>([]);
+  const [isShowNotification, setIsShowNotification] = useState(false);
 
-  addCard = (newCard: IRegisterCardItem) => {
-    this.setState((state) => ({ cards: [...state.cards, newCard] }));
+  const addCard = (newCard: IRegisterCardItem) => {
+    setCards((state) => [...state, newCard]);
   };
 
-  showNotification = () => {
-    this.setState({ isShowNotification: true });
+  const showNotification = () => {
+    setIsShowNotification(true);
 
     setTimeout(() => {
-      this.setState({ isShowNotification: false });
+      setIsShowNotification(false);
     }, 3000);
   };
 
-  render() {
-    const { cards, isShowNotification } = this.state;
+  return (
+    <main className="form-page">
+      <Form addCard={addCard} showNotification={showNotification} />
 
-    return (
-      <main className="form-page">
-        <Form addCard={this.addCard} showNotification={this.showNotification} />
+      <RegisterCardList cards={cards} className="form-page__register-cards" />
 
-        <RegisterCardList cards={cards} className="form-page__register-cards" />
-
-        {isShowNotification && <NotificationWindow />}
-      </main>
-    );
-  }
-}
+      {isShowNotification && <NotificationWindow />}
+    </main>
+  );
+};
 
 export default FormPage;
