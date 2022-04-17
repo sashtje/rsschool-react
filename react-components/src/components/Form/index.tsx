@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import { validationForm, isObjectNotFromEmptyStrings } from '../../utils/validation';
 
 import TextField from '../TextField';
@@ -15,21 +14,22 @@ import { IRegisterCardItem } from '../RegisterCardItem/types';
 import { IProps, IState, State, InputRefTypes } from './types';
 
 import { countries } from '../../model/countries';
+import { useEffect, useRef, useState } from 'react';
 
-class Form extends Component<IProps, IState> {
-  formRef: React.RefObject<HTMLFormElement> = React.createRef();
-  nameRef: React.RefObject<HTMLInputElement> = React.createRef();
-  surnameRef: React.RefObject<HTMLInputElement> = React.createRef();
-  emailRef: React.RefObject<HTMLInputElement> = React.createRef();
-  birthdayRef: React.RefObject<HTMLInputElement> = React.createRef();
-  countryRef: React.RefObject<HTMLSelectElement> = React.createRef();
-  zipcodeRef: React.RefObject<HTMLInputElement> = React.createRef();
-  genderRef: React.RefObject<HTMLInputElement> = React.createRef();
-  pictureRef: React.RefObject<HTMLInputElement> = React.createRef();
-  newsRef: React.RefObject<HTMLInputElement> = React.createRef();
-  btnSubmitRef: React.RefObject<HTMLButtonElement> = React.createRef();
+const Form = ({ addCard, showNotification }: IProps) => {
+  const formRef = useRef<HTMLFormElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const surnameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const birthdayRef = useRef<HTMLInputElement>(null);
+  const countryRef = useRef<HTMLSelectElement>(null);
+  const zipcodeRef = useRef<HTMLInputElement>(null);
+  const genderRef = useRef<HTMLInputElement>(null);
+  const pictureRef = useRef<HTMLInputElement>(null);
+  const newsRef = useRef<HTMLInputElement>(null);
+  const btnSubmitRef = useRef<HTMLButtonElement>(null);
 
-  state = {
+  const [error, setError] = useState<IState>({
     nameError: '',
     surnameError: '',
     emailError: '',
@@ -37,34 +37,35 @@ class Form extends Component<IProps, IState> {
     countryError: '',
     zipcodeError: '',
     pictureError: '',
+  });
+
+  const errorChange = (key: string, value = '') => {
+    const changedError = { [key]: value } as State;
+    setError({ ...error, ...changedError });
   };
 
-  errorChange = (key: string, value = '') => {
-    this.setState({ [key]: value } as State, this.checkSubmitBtn);
-  };
-
-  handleChangeInput = (inputNameError: string, textError: string) => {
+  const handleChangeInput = (inputNameError: string, textError: string) => {
     if (textError !== '') {
-      this.errorChange(inputNameError);
+      errorChange(inputNameError);
     } else {
-      this.checkSubmitBtn();
+      checkSubmitBtn();
     }
   };
 
-  getInputValue = (inputRef: InputRefTypes): string => {
+  const getInputValue = (inputRef: InputRefTypes): string => {
     return inputRef.current?.value as string;
   };
 
-  handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const nameValue = this.getInputValue(this.nameRef);
-    const surnameValue = this.getInputValue(this.surnameRef);
-    const emailValue = this.getInputValue(this.emailRef);
-    const birthdayValue = this.getInputValue(this.birthdayRef);
-    const countryValue = this.getInputValue(this.countryRef);
-    const zipcodeValue = this.getInputValue(this.zipcodeRef);
-    const pictureValue = this.pictureRef.current?.files as FileList;
+    const nameValue = getInputValue(nameRef);
+    const surnameValue = getInputValue(surnameRef);
+    const emailValue = getInputValue(emailRef);
+    const birthdayValue = getInputValue(birthdayRef);
+    const countryValue = getInputValue(countryRef);
+    const zipcodeValue = getInputValue(zipcodeRef);
+    const pictureValue = pictureRef.current?.files as FileList;
 
     const { isValid, validationErrors } = validationForm(
       nameValue,
@@ -89,132 +90,130 @@ class Form extends Component<IProps, IState> {
         birthday: dateBirth.toLocaleDateString(),
         country: countryValue,
         zipcode: zipcodeValue,
-        gender: this.genderRef.current?.checked ? 'M' : 'F',
-        news: this.newsRef.current?.checked as boolean,
+        gender: genderRef.current?.checked ? 'M' : 'F',
+        news: newsRef.current?.checked as boolean,
       };
 
-      this.props.addCard(newCard);
+      addCard(newCard);
 
-      this.props.showNotification();
+      showNotification();
 
-      this.formRef.current?.reset();
+      formRef.current?.reset();
     } else {
-      this.setState(validationErrors);
+      setError(validationErrors);
     }
 
-    this.btnSubmitRef.current!.disabled = true;
-    this.nameRef.current!.focus();
+    btnSubmitRef.current!.disabled = true;
+    nameRef.current!.focus();
   };
 
-  checkSubmitBtn = () => {
-    const isHasErrors = isObjectNotFromEmptyStrings(this.state);
+  const checkSubmitBtn = () => {
+    const isHasErrors = isObjectNotFromEmptyStrings(error);
     let isEmpty = true;
     if (
-      this.getInputValue(this.nameRef) !== '' ||
-      this.getInputValue(this.surnameRef) !== '' ||
-      this.getInputValue(this.emailRef) !== '' ||
-      this.getInputValue(this.zipcodeRef) !== '' ||
-      this.getInputValue(this.birthdayRef) !== '' ||
-      this.getInputValue(this.countryRef) !== '' ||
-      this.pictureRef.current!.files?.length !== 0
+      getInputValue(nameRef) !== '' ||
+      getInputValue(surnameRef) !== '' ||
+      getInputValue(emailRef) !== '' ||
+      getInputValue(zipcodeRef) !== '' ||
+      getInputValue(birthdayRef) !== '' ||
+      getInputValue(countryRef) !== '' ||
+      pictureRef.current!.files?.length !== 0
     ) {
       isEmpty = false;
     }
 
     if (isHasErrors || isEmpty) {
-      (this.btnSubmitRef.current as HTMLButtonElement).disabled = true;
+      (btnSubmitRef.current as HTMLButtonElement).disabled = true;
     } else {
-      (this.btnSubmitRef.current as HTMLButtonElement).disabled = false;
+      (btnSubmitRef.current as HTMLButtonElement).disabled = false;
     }
   };
 
-  render() {
-    const {
-      nameError,
-      surnameError,
-      emailError,
-      birthdayError,
-      countryError,
-      zipcodeError,
-      pictureError,
-    } = this.state;
+  useEffect(() => {
+    checkSubmitBtn();
+  }, [error]);
 
-    return (
-      <form
-        ref={this.formRef}
-        className="form-page__form form-register"
-        onSubmit={this.handleSubmit}
-      >
-        <TextField
-          label="Name:"
-          inputRef={this.nameRef}
-          textError={nameError}
-          name="name"
-          handleChangeInput={this.handleChangeInput}
-          autofocus
+  const {
+    nameError,
+    surnameError,
+    emailError,
+    birthdayError,
+    countryError,
+    zipcodeError,
+    pictureError,
+  } = error;
+
+  return (
+    <form ref={formRef} className="form-page__form form-register" onSubmit={handleSubmit}>
+      <TextField
+        label="Name:"
+        inputRef={nameRef}
+        textError={nameError}
+        name="name"
+        handleChangeInput={handleChangeInput}
+        autofocus
+      />
+      <TextField
+        label="Surname:"
+        inputRef={surnameRef}
+        textError={surnameError}
+        name="surname"
+        handleChangeInput={handleChangeInput}
+      />
+
+      <TextField
+        label="Email:"
+        inputRef={emailRef}
+        textError={emailError}
+        name="email"
+        handleChangeInput={handleChangeInput}
+      />
+      <DateField
+        label="Birthday:"
+        dateRef={birthdayRef}
+        textError={birthdayError}
+        name="birthday"
+        handleChangeInput={handleChangeInput}
+      />
+
+      <Select
+        label="Country:"
+        options={countries}
+        selectRef={countryRef}
+        textError={countryError}
+        name="country"
+        handleChangeInput={handleChangeInput}
+      />
+      <TextField
+        label="Zip code:"
+        inputRef={zipcodeRef}
+        textError={zipcodeError}
+        name="zipcode"
+        handleChangeInput={handleChangeInput}
+      />
+
+      <div className="form-register__row">
+        <Switcher label="Gender:" switcherRef={genderRef} />
+      </div>
+
+      <div className="form-register__row">
+        <UploadPhoto
+          pictureRef={pictureRef}
+          textError={pictureError}
+          name="picture"
+          handleChangeInput={handleChangeInput}
         />
-        <TextField
-          label="Surname:"
-          inputRef={this.surnameRef}
-          textError={surnameError}
-          name="surname"
-          handleChangeInput={this.handleChangeInput}
-        />
+      </div>
 
-        <TextField
-          label="Email:"
-          inputRef={this.emailRef}
-          textError={emailError}
-          name="email"
-          handleChangeInput={this.handleChangeInput}
-        />
-        <DateField
-          label="Birthday:"
-          dateRef={this.birthdayRef}
-          textError={birthdayError}
-          name="birthday"
-          handleChangeInput={this.handleChangeInput}
-        />
+      <div className="form-register__row">
+        <Checkbox label="I want to receive news" checkboxRef={newsRef} />
+      </div>
 
-        <Select
-          label="Country:"
-          options={countries}
-          selectRef={this.countryRef}
-          textError={countryError}
-          name="country"
-          handleChangeInput={this.handleChangeInput}
-        />
-        <TextField
-          label="Zip code:"
-          inputRef={this.zipcodeRef}
-          textError={zipcodeError}
-          name="zipcode"
-          handleChangeInput={this.handleChangeInput}
-        />
-
-        <div className="form-register__row">
-          <Switcher label="Gender:" switcherRef={this.genderRef} />
-        </div>
-
-        <div className="form-register__row">
-          <UploadPhoto
-            pictureRef={this.pictureRef}
-            textError={pictureError}
-            name="picture"
-            handleChangeInput={this.handleChangeInput}
-          />
-        </div>
-
-        <div className="form-register__row">
-          <Checkbox label="I want to receive news" checkboxRef={this.newsRef} />
-        </div>
-
-        <div className="form-register__row">
-          <Submit refBtn={this.btnSubmitRef} />
-        </div>
-      </form>
-    );
-  }
-}
+      <div className="form-register__row">
+        <Submit refBtn={btnSubmitRef} />
+      </div>
+    </form>
+  );
+};
 
 export default Form;
