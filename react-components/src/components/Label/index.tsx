@@ -2,7 +2,7 @@ import './styles.scss';
 
 import IProps from './types';
 
-const Label = ({ className }: IProps, children: HTMLInputElement) => {
+const Label = ({ className, children }: IProps) => {
   const returnClass = () => {
     return className ? `label ${className}` : 'label';
   };
