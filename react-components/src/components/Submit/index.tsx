@@ -1,25 +1,19 @@
-import { Component } from 'react';
+import { useEffect } from 'react';
 
 import './styles.scss';
 
 import { IProps } from './types';
 
-class Submit extends Component<IProps> {
-  componentDidMount() {
-    const { refBtn } = this.props;
-
+const Submit = ({ refBtn }: IProps) => {
+  useEffect(() => {
     (refBtn.current as HTMLButtonElement).disabled = true;
-  }
+  }, []);
 
-  render() {
-    const { refBtn } = this.props;
-
-    return (
-      <button ref={refBtn} className="submit">
-        Submit
-      </button>
-    );
-  }
-}
+  return (
+    <button ref={refBtn} className="submit">
+      Submit
+    </button>
+  );
+};
 
 export default Submit;
