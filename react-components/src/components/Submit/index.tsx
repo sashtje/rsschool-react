@@ -1,16 +1,10 @@
-import { useEffect } from 'react';
-
 import './styles.scss';
 
 import { IProps } from './types';
 
-const Submit = ({ refBtn }: IProps) => {
-  useEffect(() => {
-    (refBtn.current as HTMLButtonElement).disabled = true;
-  }, []);
-
+const Submit = ({ isDirty }: IProps) => {
   return (
-    <button ref={refBtn} className="submit">
+    <button type="submit" className="submit" disabled={!isDirty}>
       Submit
     </button>
   );

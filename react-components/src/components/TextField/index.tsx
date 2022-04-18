@@ -1,4 +1,9 @@
-import { useEffect } from 'react';
+import { Validate } from 'react-hook-form';
+import {
+  validationNameAndSurname,
+  validationEmail,
+  validationZipcode,
+} from '../../utils/validation';
 
 import Label from '../Label';
 
@@ -6,26 +11,44 @@ import './styles.scss';
 
 import { IProps } from './types';
 
-const TextField = ({ label, inputRef, textError, name, handleChangeInput, autofocus }: IProps) => {
-  useEffect(() => {
-    if (autofocus) {
-      inputRef.current!.focus();
+const TextField = ({ label, name, register, textError, autofocus }: IProps) => {
+  const returnValidationCallback = () => {
+    switch (name) {
+      case 'name':
+      case 'surname':
+        return validationNameAndSurname;
+
+      case 'email':
+        return validationEmail;
+
+      case 'zipcode':
+        return validationZipcode;
+
+      default:
+        return true;
     }
-  }, []);
+  };
 
   return (
     <div className="textfield">
       <Label>
         {label}
         <input
-          ref={inputRef}
+          {...register(name, {
+            validate: returnValidationCallback() as
+              | Validate<string | number | boolean | FileList | ((index: number) => File | null)>
+              | Record<
+                  string,
+                  Validate<string | number | boolean | FileList | ((index: number) => File | null)>
+                >
+              | undefined,
+          })}
           className="textfield__input"
           type="text"
-          onChange={() => handleChangeInput(`${name}Error`, textError)}
         />
       </Label>
 
-      {textError !== '' && <div className="textfield__validation">{textError}</div>}
+      {textError && <div className="textfield__validation">{textError}</div>}
     </div>
   );
 };

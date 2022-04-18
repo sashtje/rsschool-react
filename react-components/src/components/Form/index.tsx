@@ -1,4 +1,4 @@
-import { validationForm, isObjectNotFromEmptyStrings } from '../../utils/validation';
+import { useForm } from 'react-hook-form';
 
 import TextField from '../TextField';
 import DateField from '../DateField';
@@ -11,206 +11,109 @@ import Submit from '../Submit';
 import './styles.scss';
 
 import { IRegisterCardItem } from '../RegisterCardItem/types';
-import { IProps, IState, State, InputRefTypes } from './types';
+import { IProps, IFormData } from './types';
 
 import { countries } from '../../model/countries';
-import { useEffect, useRef, useState } from 'react';
 
 const Form = ({ addCard, showNotification }: IProps) => {
-  const formRef = useRef<HTMLFormElement>(null);
-  const nameRef = useRef<HTMLInputElement>(null);
-  const surnameRef = useRef<HTMLInputElement>(null);
-  const emailRef = useRef<HTMLInputElement>(null);
-  const birthdayRef = useRef<HTMLInputElement>(null);
-  const countryRef = useRef<HTMLSelectElement>(null);
-  const zipcodeRef = useRef<HTMLInputElement>(null);
-  const genderRef = useRef<HTMLInputElement>(null);
-  const pictureRef = useRef<HTMLInputElement>(null);
-  const newsRef = useRef<HTMLInputElement>(null);
-  const btnSubmitRef = useRef<HTMLButtonElement>(null);
-
-  const [error, setError] = useState<IState>({
-    nameError: '',
-    surnameError: '',
-    emailError: '',
-    birthdayError: '',
-    countryError: '',
-    zipcodeError: '',
-    pictureError: '',
-  });
-
-  const errorChange = (key: string, value = '') => {
-    const changedError = { [key]: value } as State;
-    setError({ ...error, ...changedError });
-  };
-
-  const handleChangeInput = (inputNameError: string, textError: string) => {
-    if (textError !== '') {
-      errorChange(inputNameError);
-    } else {
-      checkSubmitBtn();
-    }
-  };
-
-  const getInputValue = (inputRef: InputRefTypes): string => {
-    return inputRef.current?.value as string;
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const nameValue = getInputValue(nameRef);
-    const surnameValue = getInputValue(surnameRef);
-    const emailValue = getInputValue(emailRef);
-    const birthdayValue = getInputValue(birthdayRef);
-    const countryValue = getInputValue(countryRef);
-    const zipcodeValue = getInputValue(zipcodeRef);
-    const pictureValue = pictureRef.current?.files as FileList;
-
-    const { isValid, validationErrors } = validationForm(
-      nameValue,
-      surnameValue,
-      emailValue,
-      birthdayValue,
-      countryValue,
-      zipcodeValue,
-      pictureValue
-    );
-
-    if (isValid) {
-      const file = pictureValue[0];
-      const downFile = URL.createObjectURL(file!);
-      const dateBirth = new Date(birthdayValue);
-      const newCard: IRegisterCardItem = {
-        id: new Date().getTime(),
-        picture: downFile,
-        name: nameValue,
-        surname: surnameValue,
-        email: emailValue,
-        birthday: dateBirth.toLocaleDateString(),
-        country: countryValue,
-        zipcode: zipcodeValue,
-        gender: genderRef.current?.checked ? 'M' : 'F',
-        news: newsRef.current?.checked as boolean,
-      };
-
-      addCard(newCard);
-
-      showNotification();
-
-      formRef.current?.reset();
-    } else {
-      setError(validationErrors);
-    }
-
-    btnSubmitRef.current!.disabled = true;
-    nameRef.current!.focus();
-  };
-
-  const checkSubmitBtn = () => {
-    const isHasErrors = isObjectNotFromEmptyStrings(error);
-    let isEmpty = true;
-    if (
-      getInputValue(nameRef) !== '' ||
-      getInputValue(surnameRef) !== '' ||
-      getInputValue(emailRef) !== '' ||
-      getInputValue(zipcodeRef) !== '' ||
-      getInputValue(birthdayRef) !== '' ||
-      getInputValue(countryRef) !== '' ||
-      pictureRef.current!.files?.length !== 0
-    ) {
-      isEmpty = false;
-    }
-
-    if (isHasErrors || isEmpty) {
-      (btnSubmitRef.current as HTMLButtonElement).disabled = true;
-    } else {
-      (btnSubmitRef.current as HTMLButtonElement).disabled = false;
-    }
-  };
-
-  useEffect(() => {
-    checkSubmitBtn();
-  }, [error]);
-
   const {
-    nameError,
-    surnameError,
-    emailError,
-    birthdayError,
-    countryError,
-    zipcodeError,
-    pictureError,
-  } = error;
+    register,
+    formState: { errors, isDirty },
+    handleSubmit,
+    reset,
+  } = useForm<IFormData>({ reValidateMode: 'onSubmit' });
+
+  const onSubmit = ({
+    name,
+    surname,
+    email,
+    birthday,
+    country,
+    zipcode,
+    gender,
+    picture,
+    news,
+  }: IFormData) => {
+    const file = picture[0];
+    const downFile = URL.createObjectURL(file!);
+    const dateBirth = new Date(birthday);
+    const newCard: IRegisterCardItem = {
+      id: new Date().getTime(),
+      picture: downFile,
+      name,
+      surname,
+      email,
+      birthday: dateBirth.toLocaleDateString(),
+      country,
+      zipcode,
+      gender: gender ? 'M' : 'F',
+      news,
+    };
+
+    addCard(newCard);
+
+    showNotification();
+
+    reset();
+  };
 
   return (
-    <form ref={formRef} className="form-page__form form-register" onSubmit={handleSubmit}>
+    <form className="form-page__form form-register" onSubmit={handleSubmit(onSubmit)}>
       <TextField
         label="Name:"
-        inputRef={nameRef}
-        textError={nameError}
         name="name"
-        handleChangeInput={handleChangeInput}
+        register={register}
+        textError={errors?.name?.message}
         autofocus
       />
       <TextField
         label="Surname:"
-        inputRef={surnameRef}
-        textError={surnameError}
         name="surname"
-        handleChangeInput={handleChangeInput}
+        register={register}
+        textError={errors?.surname?.message}
       />
 
       <TextField
         label="Email:"
-        inputRef={emailRef}
-        textError={emailError}
         name="email"
-        handleChangeInput={handleChangeInput}
+        register={register}
+        textError={errors?.email?.message}
       />
       <DateField
         label="Birthday:"
-        dateRef={birthdayRef}
-        textError={birthdayError}
         name="birthday"
-        handleChangeInput={handleChangeInput}
+        register={register}
+        textError={errors?.birthday?.message}
       />
 
       <Select
         label="Country:"
-        options={countries}
-        selectRef={countryRef}
-        textError={countryError}
         name="country"
-        handleChangeInput={handleChangeInput}
+        options={countries}
+        register={register}
+        textError={errors?.country?.message}
       />
       <TextField
         label="Zip code:"
-        inputRef={zipcodeRef}
-        textError={zipcodeError}
         name="zipcode"
-        handleChangeInput={handleChangeInput}
+        register={register}
+        textError={errors?.zipcode?.message}
       />
 
       <div className="form-register__row">
-        <Switcher label="Gender:" switcherRef={genderRef} />
+        <Switcher label="Gender:" name="gender" register={register} />
       </div>
 
       <div className="form-register__row">
-        <UploadPhoto
-          pictureRef={pictureRef}
-          textError={pictureError}
-          name="picture"
-          handleChangeInput={handleChangeInput}
-        />
+        <UploadPhoto name="picture" register={register} textError={errors?.picture?.message} />
       </div>
 
       <div className="form-register__row">
-        <Checkbox label="I want to receive news" checkboxRef={newsRef} />
+        <Checkbox label="I want to receive news" name="news" register={register} />
       </div>
 
       <div className="form-register__row">
-        <Submit refBtn={btnSubmitRef} />
+        <Submit isDirty={isDirty} />
       </div>
     </form>
   );

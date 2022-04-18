@@ -1,19 +1,29 @@
+import { Validate } from 'react-hook-form';
+import { validationCountry } from '../../utils/validation';
+
 import Label from '../Label';
 
 import './styles.scss';
 
 import { IProps } from './types';
 
-const Select = ({ label, selectRef, options, textError, name, handleChangeInput }: IProps) => {
+const Select = ({ label, register, options, textError, name }: IProps) => {
   return (
     <div className="selectfield">
       <Label>
         {label}
         <select
+          {...register(name, {
+            validate: validationCountry as
+              | Validate<string | number | boolean | FileList | ((index: number) => File | null)>
+              | Record<
+                  string,
+                  Validate<string | number | boolean | FileList | ((index: number) => File | null)>
+                >
+              | undefined,
+          })}
           className="selectfield__select"
           defaultValue=""
-          ref={selectRef}
-          onChange={() => handleChangeInput(`${name}Error`, textError)}
         >
           <option key={-1} disabled></option>
           {options.map((option, index) => (
@@ -22,7 +32,7 @@ const Select = ({ label, selectRef, options, textError, name, handleChangeInput 
         </select>
       </Label>
 
-      {textError !== '' && <div className="selectfield__validation">{textError}</div>}
+      {textError && <div className="selectfield__validation">{textError}</div>}
     </div>
   );
 };

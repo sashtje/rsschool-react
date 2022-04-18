@@ -1,19 +1,29 @@
+import { Validate } from 'react-hook-form';
+import { validationPicture } from '../../utils/validation';
+
 import './styles.scss';
 
 import { IProps } from './types';
 
-const UploadPhoto = ({ pictureRef, textError, name, handleChangeInput }: IProps) => {
+const UploadPhoto = ({ textError, name, register }: IProps) => {
   return (
     <div className="uploadphoto">
       <input
-        ref={pictureRef}
+        {...register(name, {
+          validate: validationPicture as
+            | Validate<string | number | boolean | FileList | ((index: number) => File | null)>
+            | Record<
+                string,
+                Validate<string | number | boolean | FileList | ((index: number) => File | null)>
+              >
+            | undefined,
+        })}
         className="uploadphoto__input"
         type="file"
-        onChange={() => handleChangeInput(`${name}Error`, textError)}
         data-testid="uploadphoto"
       />
 
-      {textError !== '' && <div className="uploadphoto__validation">{textError}</div>}
+      {textError && <div className="uploadphoto__validation">{textError}</div>}
     </div>
   );
 };

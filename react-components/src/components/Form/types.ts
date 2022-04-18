@@ -5,23 +5,27 @@ export interface IProps {
   showNotification: () => void;
 }
 
-export interface IState {
-  nameError: string;
-  surnameError: string;
-  emailError: string;
-  birthdayError: string;
-  countryError: string;
-  zipcodeError: string;
-  pictureError: string;
+export interface IFormData {
+  name: string;
+  surname: string;
+  email: string;
+  birthday: string;
+  country: string;
+  zipcode: string;
+  gender: boolean;
+  picture: FileList;
+  news: boolean;
 }
 
-export type State = {
-  [key in keyof IState]: string;
-};
-
-export type InputRefTypes = React.RefObject<HTMLInputElement> | React.RefObject<HTMLSelectElement>;
-
-export interface IValidation {
-  isValid: boolean;
-  validationErrors: IState;
-}
+export type Name =
+  | 'name'
+  | 'surname'
+  | 'email'
+  | 'birthday'
+  | 'country'
+  | 'zipcode'
+  | 'gender'
+  | 'picture'
+  | 'news'
+  | 'picture.length'
+  | 'picture.item';

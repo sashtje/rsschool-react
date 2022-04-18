@@ -1,7 +1,10 @@
+import { UseFormRegister } from 'react-hook-form';
+
+import { IFormData, Name } from '../Form/types';
+
 export default interface IProps {
   label: string;
-  dateRef: React.RefObject<HTMLInputElement>;
-  textError: string;
-  name: string;
-  handleChangeInput: (nameError: string, textError: string) => void;
+  name: Name;
+  textError: string | undefined;
+  register: UseFormRegister<IFormData>;
 }

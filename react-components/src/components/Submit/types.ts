@@ -1,3 +1,3 @@
 export interface IProps {
-  refBtn: React.RefObject<HTMLButtonElement>;
+  isDirty: boolean;
 }
