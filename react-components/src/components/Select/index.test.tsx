@@ -1,26 +1,17 @@
-import React from 'react';
 import { screen, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import Select from '.';
 
-test('Check handleChange of Select component with error', () => {
-  /*   const label = 'Birthday:';
-  const options = ['Belgium', 'Germany', 'Russia', 'Serbia'];
-  const selectRef: React.RefObject<HTMLSelectElement> = React.createRef();
-  const textError = 'Please choose a country';
+test('Check Select component with error', () => {
+  const label = 'Birthday:';
   const name = 'birthday';
-  const handleChangeInput = jest.fn();
+  const register = jest.fn();
+  const options = ['Belgium', 'Germany', 'Russia', 'Serbia'];
+  const textError = 'Please choose a country';
 
   render(
-    <Select
-      label={label}
-      options={options}
-      selectRef={selectRef}
-      textError={textError}
-      name={name}
-      handleChangeInput={handleChangeInput}
-    />
+    <Select label={label} name={name} register={register} options={options} textError={textError} />
   );
 
   const select = screen.getByLabelText(/Birthday:/i) as HTMLSelectElement;
@@ -33,26 +24,17 @@ test('Check handleChange of Select component with error', () => {
 
   userEvent.selectOptions(select, 'Germany');
   expect(select.value).toBe('Germany');
-  expect(handleChangeInput).toHaveBeenCalledTimes(1); */
 });
 
-test('Check handleChange of Select component without error', () => {
-  /*   const label = 'Birthday:';
-  const options = ['Belgium', 'Germany', 'Russia', 'Serbia'];
-  const selectRef: React.RefObject<HTMLSelectElement> = React.createRef();
-  const textError = '';
+test('Check Select component without error', () => {
+  const label = 'Birthday:';
   const name = 'birthday';
-  const handleChangeInput = jest.fn();
+  const register = jest.fn();
+  const options = ['Belgium', 'Germany', 'Russia', 'Serbia'];
+  const textError = '';
 
   render(
-    <Select
-      label={label}
-      options={options}
-      selectRef={selectRef}
-      textError={textError}
-      name={name}
-      handleChangeInput={handleChangeInput}
-    />
+    <Select label={label} name={name} register={register} options={options} textError={textError} />
   );
 
   const select = screen.getByLabelText(/Birthday:/i) as HTMLSelectElement;
@@ -65,5 +47,4 @@ test('Check handleChange of Select component without error', () => {
 
   userEvent.selectOptions(select, 'Germany');
   expect(select.value).toBe('Germany');
-  expect(handleChangeInput).toHaveBeenCalledTimes(1); */
 });
