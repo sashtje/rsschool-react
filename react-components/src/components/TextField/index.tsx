@@ -45,6 +45,7 @@ const TextField = ({ label, name, register, textError, autofocus }: IProps) => {
           })}
           className="textfield__input"
           type="text"
+          autoFocus={autofocus ? true : false}
         />
       </Label>
 
