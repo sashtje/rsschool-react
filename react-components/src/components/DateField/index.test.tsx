@@ -1,25 +1,15 @@
-import React from 'react';
 import { screen, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import DateField from '.';
 
-test('Check handleChange of DateField component with error', () => {
-  /*   const label = 'Birthday:';
-  const dateRef: React.RefObject<HTMLInputElement> = React.createRef();
-  const textError = 'Please choose a date';
+test('Check DateField component with error', () => {
+  const label = 'Birthday:';
   const name = 'birthday';
-  const handleChangeInput = jest.fn();
+  const register = jest.fn();
+  const textError = 'Please choose a date';
 
-  render(
-    <DateField
-      label={label}
-      dateRef={dateRef}
-      textError={textError}
-      name={name}
-      handleChangeInput={handleChangeInput}
-    />
-  );
+  render(<DateField label={label} name={name} register={register} textError={textError} />);
 
   const dateInput = screen.getByLabelText(/Birthday:/i) as HTMLInputElement;
 
@@ -31,25 +21,15 @@ test('Check handleChange of DateField component with error', () => {
 
   userEvent.type(dateInput, '2020-03-03');
   expect(dateInput.value).toBe('2020-03-03');
-  expect(handleChangeInput).toHaveBeenCalledTimes(1); */
 });
 
-test('Check handleChange of DateField component without error', () => {
-  /*   const label = 'Birthday:';
-  const dateRef: React.RefObject<HTMLInputElement> = React.createRef();
-  const textError = '';
+test('Check DateField component without error', () => {
+  const label = 'Birthday:';
   const name = 'birthday';
-  const handleChangeInput = jest.fn();
+  const register = jest.fn();
+  const textError = '';
 
-  render(
-    <DateField
-      label={label}
-      dateRef={dateRef}
-      textError={textError}
-      name={name}
-      handleChangeInput={handleChangeInput}
-    />
-  );
+  render(<DateField label={label} name={name} register={register} textError={textError} />);
 
   const dateInput = screen.getByLabelText(/Birthday:/i) as HTMLInputElement;
 
@@ -61,5 +41,4 @@ test('Check handleChange of DateField component without error', () => {
 
   userEvent.type(dateInput, '2020-03-03');
   expect(dateInput.value).toBe('2020-03-03');
-  expect(handleChangeInput).toHaveBeenCalledTimes(1); */
 });
