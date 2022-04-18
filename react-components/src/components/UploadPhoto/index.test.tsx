@@ -1,23 +1,14 @@
-import React from 'react';
 import { screen, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import UploadPhoto from '.';
 
-test('Check handleChange of DateField component with error', () => {
-  /*   const pictureRef: React.RefObject<HTMLInputElement> = React.createRef();
-  const textError = 'Please choose a date';
+test('Check UploadPhoto component with error', () => {
   const name = 'birthday';
-  const handleChangeInput = jest.fn();
+  const register = jest.fn();
+  const textError = 'Please choose a date';
 
-  render(
-    <UploadPhoto
-      pictureRef={pictureRef}
-      textError={textError}
-      name={name}
-      handleChangeInput={handleChangeInput}
-    />
-  );
+  render(<UploadPhoto name={name} register={register} textError={textError} />);
 
   const pictureInput = screen.getByTestId('uploadphoto') as HTMLInputElement;
 
@@ -32,24 +23,14 @@ test('Check handleChange of DateField component with error', () => {
   userEvent.upload(pictureInput, file);
   expect(pictureInput?.files![0]).toStrictEqual(file);
   expect(pictureInput.files).toHaveLength(1);
-
-  expect(handleChangeInput).toHaveBeenCalledTimes(1); */
 });
 
-test('Check handleChange of DateField component without error', () => {
-  /*   const pictureRef: React.RefObject<HTMLInputElement> = React.createRef();
-  const textError = '';
+test('Check UploadPhoto component without error', () => {
   const name = 'birthday';
-  const handleChangeInput = jest.fn();
+  const register = jest.fn();
+  const textError = '';
 
-  render(
-    <UploadPhoto
-      pictureRef={pictureRef}
-      textError={textError}
-      name={name}
-      handleChangeInput={handleChangeInput}
-    />
-  );
+  render(<UploadPhoto textError={textError} register={register} name={name} />);
 
   const pictureInput = screen.getByTestId('uploadphoto') as HTMLInputElement;
 
@@ -64,5 +45,4 @@ test('Check handleChange of DateField component without error', () => {
   userEvent.upload(pictureInput, file);
   expect(pictureInput?.files![0]).toStrictEqual(file);
   expect(pictureInput.files).toHaveLength(1);
-  expect(handleChangeInput).toHaveBeenCalledTimes(1); */
 });
