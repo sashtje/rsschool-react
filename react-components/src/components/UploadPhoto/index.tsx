@@ -1,4 +1,3 @@
-import { Validate } from 'react-hook-form';
 import { validationPicture } from '../../utils/validation';
 
 import './styles.scss';
@@ -10,13 +9,7 @@ const UploadPhoto = ({ textError, name, register }: IProps) => {
     <div className="uploadphoto">
       <input
         {...register(name, {
-          validate: validationPicture as
-            | Validate<string | number | boolean | FileList | ((index: number) => File | null)>
-            | Record<
-                string,
-                Validate<string | number | boolean | FileList | ((index: number) => File | null)>
-              >
-            | undefined,
+          validate: (value) => validationPicture(value as FileList),
         })}
         className="uploadphoto__input"
         type="file"

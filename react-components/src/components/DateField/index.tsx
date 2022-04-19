@@ -1,4 +1,3 @@
-import { Validate } from 'react-hook-form';
 import { validationBirthday } from '../../utils/validation';
 
 import Label from '../Label';
@@ -14,13 +13,7 @@ const DateField = ({ label, name, register, textError }: IProps) => {
         {label}
         <input
           {...register(name, {
-            validate: validationBirthday as
-              | Validate<string | number | boolean | FileList | ((index: number) => File | null)>
-              | Record<
-                  string,
-                  Validate<string | number | boolean | FileList | ((index: number) => File | null)>
-                >
-              | undefined,
+            validate: (value) => validationBirthday(value as string),
           })}
           className="datefield__input"
           type="date"

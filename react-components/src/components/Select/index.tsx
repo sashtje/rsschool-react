@@ -1,4 +1,3 @@
-import { Validate } from 'react-hook-form';
 import { validationCountry } from '../../utils/validation';
 
 import Label from '../Label';
@@ -14,13 +13,7 @@ const Select = ({ label, register, options, textError, name }: IProps) => {
         {label}
         <select
           {...register(name, {
-            validate: validationCountry as
-              | Validate<string | number | boolean | FileList | ((index: number) => File | null)>
-              | Record<
-                  string,
-                  Validate<string | number | boolean | FileList | ((index: number) => File | null)>
-                >
-              | undefined,
+            validate: (value) => validationCountry(value as string),
           })}
           className="selectfield__select"
           defaultValue=""

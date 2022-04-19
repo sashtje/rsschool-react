@@ -1,4 +1,3 @@
-import { Validate } from 'react-hook-form';
 import {
   validationNameAndSurname,
   validationEmail,
@@ -12,20 +11,17 @@ import './styles.scss';
 import { IProps } from './types';
 
 const TextField = ({ label, name, register, textError, autofocus }: IProps) => {
-  const returnValidationCallback = () => {
+  const returnValidationCallback = (value: string) => {
     switch (name) {
       case 'name':
       case 'surname':
-        return validationNameAndSurname;
+        return validationNameAndSurname(value);
 
       case 'email':
-        return validationEmail;
+        return validationEmail(value);
 
       case 'zipcode':
-        return validationZipcode;
-
-      default:
-        return true;
+        return validationZipcode(value);
     }
   };
 
@@ -35,13 +31,7 @@ const TextField = ({ label, name, register, textError, autofocus }: IProps) => {
         {label}
         <input
           {...register(name, {
-            validate: returnValidationCallback() as
-              | Validate<string | number | boolean | FileList | ((index: number) => File | null)>
-              | Record<
-                  string,
-                  Validate<string | number | boolean | FileList | ((index: number) => File | null)>
-                >
-              | undefined,
+            validate: (value) => returnValidationCallback(value as string),
           })}
           className="textfield__input"
           type="text"
