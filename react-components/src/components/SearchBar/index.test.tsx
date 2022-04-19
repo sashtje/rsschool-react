@@ -42,7 +42,7 @@ test('test with mock local storage with initial value', () => {
   const input = screen.getByRole('searchbox') as HTMLInputElement;
   expect(input).toHaveValue('happiness');
 
-  expect(getItem).toHaveBeenCalledTimes(2);
+  expect(getItem).toHaveBeenCalledTimes(1);
 
   const value = 'love';
 
@@ -56,5 +56,5 @@ test('test with mock local storage with initial value', () => {
 
   userEvent.click(linkHome);
   expect(input).toHaveValue(value);
-  expect(getItem).toHaveBeenCalledTimes(4);
+  expect(getItem).toHaveBeenCalledTimes(2);
 });

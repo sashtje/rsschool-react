@@ -11,13 +11,8 @@ const SearchBar = ({ search, changeSearch }: IProps) => {
   };
 
   useEffect(() => {
-    let searchQuery = '';
-
-    if (localStorage.getItem('searchbar') as string) {
-      searchQuery = localStorage.getItem('searchbar') as string;
-    }
-
-    changeSearch(searchQuery, true);
+    const searchQuery = localStorage.getItem('searchbar') as string;
+    changeSearch(searchQuery ? searchQuery : '', true);
   }, []);
 
   useEffect(() => {
