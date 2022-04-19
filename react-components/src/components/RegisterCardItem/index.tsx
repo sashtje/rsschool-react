@@ -3,11 +3,13 @@ import { BsGenderFemale, BsGenderMale } from 'react-icons/bs';
 
 import './styles.scss';
 
-import { IProps } from './types';
+import { IRegisterCardItem } from './types';
 
-const RegisterCardItem = (props: IProps) => {
-  const { picture, name, surname, email, birthday, country, zipcode, gender, news } = props.card;
-
+const RegisterCardItem = ({
+  card: { picture, name, surname, email, birthday, country, zipcode, gender, news },
+}: {
+  card: IRegisterCardItem;
+}) => {
   return (
     <div className="registercard">
       <div className="registercard__pic" style={{ backgroundImage: `url("${picture}")` }}></div>
