@@ -15,8 +15,8 @@ const ModalWindow = ({ closeWindow, card }: IProps) => {
     e.stopPropagation();
   };
 
-  const getLocalDateTaken = (date: string) => {
-    let dateLocal;
+  const getLocalDateTaken = (date: string | number) => {
+    let dateLocal: string | number;
 
     dateLocal = new Date(date).toLocaleString();
 
@@ -77,13 +77,13 @@ const ModalWindow = ({ closeWindow, card }: IProps) => {
 
         {dateupload && (
           <div className="modalwindow__block">
-            <b>Date upload:</b> {new Date(+dateupload).toLocaleString()}
+            <b>Date upload:</b> {getLocalDateTaken(+dateupload)}
           </div>
         )}
 
         {lastupdate && (
           <div className="modalwindow__block">
-            <b>Last update:</b> {new Date(+lastupdate).toLocaleString()}
+            <b>Last update:</b> {getLocalDateTaken(+lastupdate)}
           </div>
         )}
 
