@@ -11,7 +11,7 @@ import './styles.scss';
 import { IProps } from './types';
 
 const TextField = ({ label, name, register, textError, autofocus }: IProps) => {
-  const returnValidationCallback = (value: string) => {
+  const validationTextField = (value: string) => {
     switch (name) {
       case 'name':
       case 'surname':
@@ -31,7 +31,7 @@ const TextField = ({ label, name, register, textError, autofocus }: IProps) => {
         {label}
         <input
           {...register(name, {
-            validate: (value) => returnValidationCallback(value as string),
+            validate: (value) => validationTextField(value as string),
           })}
           className="textfield__input"
           type="text"
