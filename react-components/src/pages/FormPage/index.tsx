@@ -29,7 +29,7 @@ const FormPage = () => {
 
       <RegisterCardList cards={cards} className="form-page__register-cards" />
 
-      {isShowNotification && <NotificationWindow />}
+      {isShowNotification && <NotificationWindow message="The data was saved successfully!" />}
     </main>
   );
 };

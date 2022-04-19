@@ -1,7 +1,7 @@
 import './styles.scss';
 
-const NotificationWindow = () => {
-  return <div className="notification">The data was saved successfully!</div>;
+const NotificationWindow = ({ message }: { message: string }) => {
+  return <div className="notification">{message}</div>;
 };
 
 export default NotificationWindow;
