@@ -1,8 +1,6 @@
 import './styles.scss';
 
-import { IProps } from './types';
-
-const Submit = ({ isDirty }: IProps) => {
+const Submit = ({ isDirty }: { isDirty: boolean }) => {
   return (
     <button type="submit" className="submit" disabled={!isDirty}>
       Submit
