@@ -5,12 +5,11 @@ import './styles.scss';
 import { IProps } from './types';
 
 const RegisterCardList = ({ className, cards }: IProps) => {
-  const returnClass = () => {
-    return className ? `registercards ${className}` : 'registercards';
-  };
-
   return (
-    <div data-testid="regcards-container" className={returnClass()}>
+    <div
+      data-testid="regcards-container"
+      className={className ? `registercards ${className}` : 'registercards'}
+    >
       {cards.map((card) => (
         <RegisterCardItem card={card} key={card.id} />
       ))}
