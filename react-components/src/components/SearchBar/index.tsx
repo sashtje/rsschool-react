@@ -21,7 +21,7 @@ const SearchBar = ({ search, changeSearch }: IProps) => {
   }, []);
 
   useEffect(() => {
-    return localStorage.setItem('searchbar', search);
+    localStorage.setItem('searchbar', search);
   }, [search]);
 
   return (
