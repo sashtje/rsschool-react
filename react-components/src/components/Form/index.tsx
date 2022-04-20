@@ -18,6 +18,7 @@ import { countries } from '../../model/countries';
 const Form = ({ addCard, showNotification }: IProps) => {
   const {
     register,
+    setFocus,
     formState: { errors, isDirty },
     handleSubmit,
     reset,
@@ -55,6 +56,8 @@ const Form = ({ addCard, showNotification }: IProps) => {
     showNotification();
 
     reset();
+
+    setFocus('name', { shouldSelect: true });
   };
 
   return (
