@@ -1,4 +1,4 @@
-import { screen, fireEvent } from '@testing-library/react';
+import { screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import App from '../../App';
@@ -31,6 +31,10 @@ test('Main page render test', async () => {
 
   const loader = screen.getByTestId('loader');
   expect(loader).toBeInTheDocument();
+
+  await waitFor(() => {
+    expect(screen.queryByTestId('loader')).not.toBeInTheDocument();
+  });
 });
 
 test('Main page render test', async () => {
@@ -63,4 +67,8 @@ test('Main page render test', async () => {
   searchBar.value = '';
   userEvent.type(searchBar, 'sports');
   fireEvent.submit(searchBar);
+
+  await waitFor(() => {
+    expect(screen.queryByTestId('loader')).not.toBeInTheDocument();
+  });
 });

@@ -1,8 +1,11 @@
+import { useEffect, useState } from 'react';
 import { AiOutlineEye } from 'react-icons/ai';
 
 import './styles.scss';
 
 import { IData } from '../../pages/Main/types';
+
+import { GEO_KEY } from '../../model/const';
 
 const CardData = ({
   card: {
@@ -21,6 +24,8 @@ const CardData = ({
 }: {
   card: IData;
 }) => {
+  const [address, setAddress] = useState<string>('');
+
   const getLocalDateTaken = (date: string | number) => {
     let dateLocal: string | number;
 
@@ -32,6 +37,23 @@ const CardData = ({
 
     return dateLocal;
   };
+
+  const getFullAddress = async () => {
+    try {
+      const data = await fetch(
+        `https://us1.locationiq.com/v1/reverse.php?key=${GEO_KEY}&lat=${latitude}&lon=${longitude}&format=json&accept-language=en`
+      );
+      const response = await data.json();
+
+      setAddress(response.display_name);
+    } catch {
+      setAddress('Address unknown');
+    }
+  };
+
+  useEffect(() => {
+    getFullAddress();
+  }, []);
 
   return (
     <>
@@ -75,7 +97,7 @@ const CardData = ({
       )}
 
       <div className="carddata__block">
-        <b>Geo:</b> <i>lat</i> {latitude}, <i>lon</i> {longitude}
+        <b>Geo:</b> {address}
       </div>
     </>
   );

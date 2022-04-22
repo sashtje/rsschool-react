@@ -1,4 +1,4 @@
-import { waitFor, render, screen } from '@testing-library/react';
+import { waitFor, render, screen, waitForElementToBeRemoved, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import FormPage from '.';
@@ -82,13 +82,16 @@ test('Test render of FormPage without errors of Validation with male', async () 
   expect(notificationMessage).toBeInTheDocument();
   expect(containerCards).not.toBeEmptyDOMElement();
 
-  jest.advanceTimersByTime(4000);
+  act(() => {
+    jest.advanceTimersByTime(4000);
+  });
 
   const notMess = screen.queryByText(/The data was saved successfully!/i);
   expect(notMess).not.toBeInTheDocument();
 
   const male = screen.getByTestId('male');
   expect(male).toBeInTheDocument();
+
   jest.clearAllTimers();
   jest.clearAllMocks();
   jest.useRealTimers();
@@ -167,7 +170,4 @@ test('Test render of FormPage without errors of Validation with female', async (
   await waitFor(() => userEvent.click(btnSubmit));
 
   expect(containerCards).not.toBeEmptyDOMElement();
-
-  /* const female = screen.getByTestId('female');
-  expect(female).toBeInTheDocument(); */
 });
