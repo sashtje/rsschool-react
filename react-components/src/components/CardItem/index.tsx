@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { AiOutlineEye } from 'react-icons/ai';
 
+import CardData from '../CardData';
 import ModalWindow from '../ModalWindow';
 
 import './styles.scss';
@@ -37,7 +38,11 @@ const CardItem = (props: IProps) => {
         {views}
       </div>
 
-      {isModalWindowShown && <ModalWindow closeWindow={handleClick} card={props.card} />}
+      {isModalWindowShown && (
+        <ModalWindow closeWindow={handleClick}>
+          <CardData card={props.card} />
+        </ModalWindow>
+      )}
     </section>
   );
 };

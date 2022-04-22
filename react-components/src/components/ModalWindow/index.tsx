@@ -1,11 +1,18 @@
-import React from 'react';
-import { AiOutlineCloseSquare, AiOutlineEye } from 'react-icons/ai';
+import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import { AiOutlineCloseSquare } from 'react-icons/ai';
 
 import './styles.scss';
 
 import { IProps } from './types';
 
-const ModalWindow = ({ closeWindow, card }: IProps) => {
+const modalRoot = document.createElement('div');
+modalRoot.setAttribute('id', 'modal');
+document.body.appendChild(modalRoot);
+
+const ModalWindow = ({ closeWindow, children }: IProps) => {
+  const el = document.createElement('div');
+
   const handleCloseWindow = (e: React.MouseEvent) => {
     e.stopPropagation();
     closeWindow();
@@ -15,83 +22,25 @@ const ModalWindow = ({ closeWindow, card }: IProps) => {
     e.stopPropagation();
   };
 
-  const getLocalDateTaken = (date: string | number) => {
-    let dateLocal: string | number;
+  useEffect(() => {
+    modalRoot.appendChild(el);
 
-    dateLocal = new Date(date).toLocaleString();
+    return () => {
+      modalRoot.removeChild(el);
+    };
+  });
 
-    if (dateLocal.toString() === 'Invalid Date') {
-      dateLocal = date;
-    }
-
-    return dateLocal;
-  };
-
-  const {
-    title,
-    description,
-    ownername,
-    datetaken,
-    dateupload,
-    lastupdate,
-    views,
-    tags,
-    latitude,
-    longitude,
-    url,
-  } = card;
-
-  return (
+  return createPortal(
     <div className="modalwindow" onClick={handleCloseWindow} data-testid="modal-window">
-      <div className="modalwindow__content" onClick={stopClick} data-testid="modal-window-content">
+      <div className="modalwindow__wrapper" onClick={stopClick} data-testid="modal-window-wrapper">
         <span className="modalwindow__close-icon" onClick={handleCloseWindow}>
           <AiOutlineCloseSquare />
         </span>
 
-        <div className="modalwindow__photo">
-          <img src={url} alt={`flickr photo ${tags}`} />
-        </div>
-
-        <h2 className="modalwindow__title">{title}</h2>
-
-        <div className="modalwindow__author">
-          by <span className="modalwindow__author-name">{ownername}</span>
-        </div>
-
-        <div className="modalwindow__feedback">
-          <AiOutlineEye />
-          {views}
-        </div>
-
-        {description?._content && (
-          <div className="modalwindow__description">
-            <b>Description:</b> {description?._content}
-          </div>
-        )}
-
-        {datetaken && (
-          <div className="modalwindow__block">
-            <b>Date taken:</b> {getLocalDateTaken(datetaken)}
-          </div>
-        )}
-
-        {dateupload && (
-          <div className="modalwindow__block">
-            <b>Date upload:</b> {getLocalDateTaken(+dateupload)}
-          </div>
-        )}
-
-        {lastupdate && (
-          <div className="modalwindow__block">
-            <b>Last update:</b> {getLocalDateTaken(+lastupdate)}
-          </div>
-        )}
-
-        <div className="modalwindow__block">
-          <b>Geo:</b> <i>lat</i> {latitude}, <i>lon</i> {longitude}
-        </div>
+        <div className="modalwindow__content">{children}</div>
       </div>
-    </div>
+    </div>,
+    el
   );
 };
 

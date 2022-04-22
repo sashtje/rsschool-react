@@ -2,6 +2,7 @@ import { screen, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import ModalWindow from './index';
+import CardData from '../CardData';
 
 describe('tests for ModalWindow', () => {
   test('test render ModalWindow', () => {
@@ -21,7 +22,11 @@ describe('tests for ModalWindow', () => {
       url: '',
     };
 
-    render(<ModalWindow closeWindow={closeWindow} card={card} />);
+    render(
+      <ModalWindow closeWindow={closeWindow}>
+        <CardData card={card} />
+      </ModalWindow>
+    );
 
     const modalWindow = screen.getByTestId('modal-window');
     expect(modalWindow).toBeInTheDocument();
@@ -62,7 +67,11 @@ describe('tests for ModalWindow', () => {
       url: '',
     };
 
-    render(<ModalWindow closeWindow={closeWindow} card={card} />);
+    render(
+      <ModalWindow closeWindow={closeWindow}>
+        <CardData card={card} />
+      </ModalWindow>
+    );
 
     const modalWindow = screen.getByTestId('modal-window');
     expect(modalWindow).toBeInTheDocument();
@@ -103,12 +112,16 @@ describe('tests for ModalWindow', () => {
       url: '',
     };
 
-    render(<ModalWindow closeWindow={closeWindow} card={card} />);
+    render(
+      <ModalWindow closeWindow={closeWindow}>
+        <CardData card={card} />
+      </ModalWindow>
+    );
 
     const modalWindow = screen.getByTestId('modal-window');
     expect(modalWindow).toBeInTheDocument();
 
-    const content = screen.getByTestId('modal-window-content');
+    const content = screen.getByTestId('modal-window-wrapper');
     expect(content).toBeInTheDocument();
 
     userEvent.click(content);
