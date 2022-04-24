@@ -1,4 +1,6 @@
 .carddata {
+  overflow-wrap: break-word;
+
   &__photo {
     img {
       max-width: 100%;

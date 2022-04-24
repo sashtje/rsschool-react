@@ -56,7 +56,7 @@ const CardData = ({
   }, []);
 
   return (
-    <>
+    <div className="carddata">
       <div className="carddata__photo">
         <img src={url} alt={`flickr photo ${tags}`} />
       </div>
@@ -99,7 +99,7 @@ const CardData = ({
       <div className="carddata__block">
         <b>Geo:</b> {address}
       </div>
-    </>
+    </div>
   );
 };
 

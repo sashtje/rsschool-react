@@ -6,6 +6,7 @@ const initialState = {
     sort: '',
     cardsPerPage: 100,
     currentPage: 1,
+    totalPages: 0,
     cards: [],
   },
   form: {

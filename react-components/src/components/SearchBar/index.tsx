@@ -28,6 +28,7 @@ const SearchBar = ({ search, changeSearch }: IProps) => {
         className="searchbar__input"
         autoFocus
         type="search"
+        name="search"
         value={search}
         onChange={handleChange}
       />

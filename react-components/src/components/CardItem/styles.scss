@@ -3,6 +3,7 @@
   width: 300px;
   padding: 10px;
   cursor: pointer;
+  overflow-wrap: break-word;
   transition: 0.3s;
 
   &:hover {
