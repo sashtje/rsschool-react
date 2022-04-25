@@ -8,7 +8,7 @@ const Pagination = () => {
 
   return (
     <div className="pagination">
-      <button className="pagination__prev-btn">
+      <button className="pagination__prev-btn" disabled>
         <BsFillCaretLeftFill />
       </button>
       {isEdit ? <input type="text" /> : <span></span>}
