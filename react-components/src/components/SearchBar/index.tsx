@@ -1,12 +1,22 @@
-import React, { useEffect } from 'react';
+import { RefObject, useContext, useEffect } from 'react';
 import { FcSearch } from 'react-icons/fc';
+
+import { AppContext } from '../../context';
 
 import './styles.scss';
 
-const SearchBar = () => {
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    /* changeSearch((e.target as HTMLInputElement).value); */
+const SearchBar = ({ refSearch }: { refSearch: RefObject<HTMLInputElement> }) => {
+  const { state } = useContext(AppContext);
+
+  const handleBlur = () => {
+    if (state.main.search !== (refSearch.current as HTMLInputElement).value) {
+      (refSearch.current as HTMLInputElement).value = state.main.search;
+    }
   };
+
+  useEffect(() => {
+    (refSearch.current as HTMLInputElement).value = state.main.search;
+  }, []);
 
   return (
     <div className="searchbar">
@@ -18,8 +28,8 @@ const SearchBar = () => {
         autoFocus
         type="search"
         name="search"
-        /* value={search}
-        onChange={handleChange} */
+        ref={refSearch}
+        onBlur={handleBlur}
       />
     </div>
   );

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 
 import RadioSearch from '../RadioSearch';
 import SearchBar from '../SearchBar';
@@ -11,11 +11,15 @@ import { sort } from '../../model/sort-options';
 
 const FormSearch = ({ loadServerData }: { loadServerData: () => void }) => {
   const { state, dispatch } = useContext(AppContext);
+  const refSearch = useRef<HTMLInputElement>(null);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    loadServerData();
+    const value = (refSearch.current as HTMLInputElement).value;
+
+    dispatch({ type: 'change-search', payload: { search: value } });
+    dispatch({ type: 'clear-main-cards' });
   };
 
   useEffect(() => {
@@ -35,7 +39,7 @@ const FormSearch = ({ loadServerData }: { loadServerData: () => void }) => {
 
   return (
     <form action="" className="home__form search-form" onSubmit={onSubmit}>
-      <SearchBar />
+      <SearchBar refSearch={refSearch} />
 
       <div className="search-form__block">
         <SelectSearch label="Sort:" options={sort} name="sort" />
