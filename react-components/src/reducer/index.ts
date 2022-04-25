@@ -5,6 +5,7 @@ export const mainReducer = (state: MainType, action) => {
     case 'load-main-cards':
     case 'change-per-page':
     case 'change-search':
+    case 'change-sort':
       return { ...state, ...action.payload };
 
     case 'clear-main-cards':

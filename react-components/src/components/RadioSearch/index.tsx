@@ -13,6 +13,7 @@ const RadioSearch = ({ label, name }: IProps) => {
   const { state, dispatch } = useContext(AppContext);
   const handleChange = (e: React.ChangeEvent) => {
     const value = (e.target as HTMLInputElement).value;
+
     dispatch({ type: 'change-per-page', payload: { cardsPerPage: value } });
     dispatch({ type: 'clear-main-cards' });
   };
