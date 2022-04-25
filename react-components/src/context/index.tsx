@@ -4,7 +4,7 @@ import { mainReducer, formReducer } from '../reducer/index';
 
 import { InitialStateType, ContextType } from './types';
 
-import { INITIAL_STATE } from '../model/const';
+import { INITIAL_STATE } from './const';
 
 const AppContext = createContext<ContextType>({
   state: INITIAL_STATE,
