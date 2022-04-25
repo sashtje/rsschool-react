@@ -1,69 +1,45 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { getDefaultPhotos, getPhotosByText } from '../../utils/flickrApi';
 
-import SearchBar from '../../components/SearchBar';
 import CardList from '../../components/CardList';
-import SelectSearch from '../../components/SelectSearch';
-import RadioSearch from '../../components/RadioSearch';
 import Loader from '../../components/Loader';
 import Pagination from '../../components/Pagination';
+import FormSearch from '../../components/FormSearch';
+import { AppContext } from '../../context';
 
 import './styles.scss';
 
-import { IData, IPhotosData } from './types';
-
-import { sort } from '../../model/sort-options';
+import { IPhotosData } from './types';
 
 const Main = () => {
-  const [search, setSearch] = useState('');
+  const { state, dispatch } = useContext(AppContext);
   const [isLoading, setIsLoading] = useState(false);
   const [textError, setTextError] = useState('');
-  const [data, setData] = useState<IData[]>([]);
 
-  const loadServerData = async (searchStr: string) => {
-    /* setIsLoading(true);
+  const loadServerData = async () => {
+    setIsLoading(true);
 
     let photosData: IPhotosData;
+    const { search, sort, cardsPerPage, currentPage } = state.main;
 
-    if (searchStr === '') {
-      photosData = await getDefaultPhotos();
+    if (search === '') {
+      photosData = await getDefaultPhotos(sort, cardsPerPage, currentPage);
     } else {
-      photosData = await getPhotosByText(searchStr);
+      photosData = await getPhotosByText(search, sort, cardsPerPage, currentPage);
     }
 
-    const { data, textError } = photosData;
-    setData(data);
-    setTextError(textError);
-    setIsLoading(false); */
-  };
+    const { data, textError, totalPages } = photosData;
 
-  const onSubmit = (e: React.FormEvent) => {
-    // e.preventDefault();
-
-    loadServerData(search);
-  };
-
-  const changeSearch = (searchStr: string, loadData = false) => {
-    setSearch(searchStr);
-
-    if (loadData) {
-      loadServerData(searchStr);
-    }
+    textError
+      ? setTextError(textError)
+      : dispatch({ type: 'load-main-cards', payload: { cards: data, totalPages } });
+    setIsLoading(false);
   };
 
   return (
     <main className="home">
       <div className="home__container">
-        <form action="" className="home__form search-form" onSubmit={onSubmit}>
-          <SearchBar search={search} changeSearch={changeSearch} />
-
-          <div className="search-form__block">
-            <SelectSearch label="Sort:" options={sort} name="sort" />
-
-            <RadioSearch label="Per page:" name="perpage" />
-          </div>
-          <input type="hidden" name="page" value={1} />
-        </form>
+        <FormSearch loadServerData={loadServerData} />
 
         {isLoading ? (
           <Loader />
@@ -71,7 +47,7 @@ const Main = () => {
           <div className="home__error">{textError}</div>
         ) : (
           <>
-            <CardList className="home__cards" data={data} />
+            <CardList className="home__cards" data={state.main.cards} />
 
             <Pagination />
           </>

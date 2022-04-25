@@ -16,12 +16,12 @@ export function getDataWithURL(data: IData[]): IData[] {
   return data;
 }
 
-export async function getDefaultPhotos() {
-  const photosData: IPhotosData = { textError: '', data: [] };
+export async function getDefaultPhotos(sort: string, cardsPerPage: string, currentPage: string) {
+  const photosData: IPhotosData = { textError: '', data: [], totalPages: '0' };
 
   try {
     const response = await fetch(
-      `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${KEY}&text=nature&sort=relevance&extras=description%2C+date_upload%2C+date_taken%2C+owner_name%2C+last_update%2C+geo%2C+tags%2C+views%2C+url_sq%2C+url_t%2C+url_s%2C+url_q%2C+url_m%2C+url_n%2C+url_z%2C+url_c%2C+url_l%2C+url_o&format=json&nojsoncallback=1`
+      `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${KEY}&text=nature&sort=${sort}&per_page=${cardsPerPage}&page=${currentPage}&extras=description%2C+date_upload%2C+date_taken%2C+owner_name%2C+last_update%2C+geo%2C+tags%2C+views%2C+url_sq%2C+url_t%2C+url_s%2C+url_q%2C+url_m%2C+url_n%2C+url_z%2C+url_c%2C+url_l%2C+url_o&format=json&nojsoncallback=1`
     );
 
     const dataResp: IDataResponse = await response.json();
@@ -33,6 +33,7 @@ export async function getDefaultPhotos() {
       photosData.textError = 'No recent photos. Please enter a request.';
     } else {
       photosData.data = getDataWithURL(photos.photo);
+      photosData.totalPages = photos.total.toString();
     }
   } catch (e) {
     photosData.textError = (e as Error).message;
@@ -41,12 +42,17 @@ export async function getDefaultPhotos() {
   return photosData;
 }
 
-export async function getPhotosByText(search: string) {
-  const photosData: IPhotosData = { textError: '', data: [] };
+export async function getPhotosByText(
+  search: string,
+  sort: string,
+  cardsPerPage: string,
+  currentPage: string
+) {
+  const photosData: IPhotosData = { textError: '', data: [], totalPages: '0' };
 
   try {
     const response = await fetch(
-      `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${KEY}&text=${search}&sort=relevance&extras=description%2C+date_upload%2C+date_taken%2C+owner_name%2C+last_update%2C+geo%2C+tags%2C+views%2C+url_sq%2C+url_t%2C+url_s%2C+url_q%2C+url_m%2C+url_n%2C+url_z%2C+url_c%2C+url_l%2C+url_o&format=json&nojsoncallback=1`
+      `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${KEY}&text=${search}&sort=${sort}&per_page=${cardsPerPage}&page=${currentPage}&extras=description%2C+date_upload%2C+date_taken%2C+owner_name%2C+last_update%2C+geo%2C+tags%2C+views%2C+url_sq%2C+url_t%2C+url_s%2C+url_q%2C+url_m%2C+url_n%2C+url_z%2C+url_c%2C+url_l%2C+url_o&format=json&nojsoncallback=1`
     );
 
     const dataResp: IDataResponse = await response.json();
@@ -58,6 +64,7 @@ export async function getPhotosByText(search: string) {
       photosData.textError = 'Nothing found for your request';
     } else {
       photosData.data = getDataWithURL(photos.photo);
+      photosData.totalPages = photos.total.toString();
     }
   } catch (e) {
     photosData.textError = (e as Error).message;

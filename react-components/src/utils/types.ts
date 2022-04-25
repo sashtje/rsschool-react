@@ -3,5 +3,5 @@ import { IData } from '../pages/Main/types';
 export interface IDataResponse {
   stat: string;
   message: string;
-  photos: { photo: IData[] };
+  photos: { photo: IData[]; total: number };
 }

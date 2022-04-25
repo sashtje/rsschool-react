@@ -3,21 +3,10 @@ import { FcSearch } from 'react-icons/fc';
 
 import './styles.scss';
 
-import { IProps } from './types';
-
-const SearchBar = ({ search, changeSearch }: IProps) => {
+const SearchBar = () => {
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    changeSearch((e.target as HTMLInputElement).value);
+    /* changeSearch((e.target as HTMLInputElement).value); */
   };
-
-  useEffect(() => {
-    const searchQuery = localStorage.getItem('searchbar') as string;
-    changeSearch(searchQuery ? searchQuery : '', true);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('searchbar', search);
-  }, [search]);
 
   return (
     <div className="searchbar">
@@ -29,8 +18,8 @@ const SearchBar = ({ search, changeSearch }: IProps) => {
         autoFocus
         type="search"
         name="search"
-        value={search}
-        onChange={handleChange}
+        /* value={search}
+        onChange={handleChange} */
       />
     </div>
   );

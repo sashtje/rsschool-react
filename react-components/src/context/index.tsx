@@ -1,26 +1,25 @@
-import { createContext } from 'react';
+import { createContext, useReducer } from 'react';
 
-const initialState = {
-  main: {
-    search: '',
-    sort: '',
-    cardsPerPage: 100,
-    currentPage: 1,
-    totalPages: 0,
-    cards: [],
-  },
-  form: {
-    name: '',
-    surname: '',
-    email: '',
-    birthday: '',
-    country: '',
-    zipcode: '',
-    gender: false,
-    file: '',
-    news: false,
-    cards: [],
-  },
+import { mainReducer, formReducer } from '../reducer/index';
+
+import { InitialStateType, ContextType } from './types';
+
+import { INITIAL_STATE } from '../model/const';
+
+const AppContext = createContext<ContextType>({
+  state: INITIAL_STATE,
+  dispatch: () => null,
+});
+
+const reducer = ({ main, form }: InitialStateType, action) => ({
+  main: mainReducer(main, action),
+  form: formReducer(form, action),
+});
+
+const AppProvider = ({ children }: { children: React.ReactNode }) => {
+  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
+
+  return <AppContext.Provider value={{ state, dispatch }}>{children}</AppContext.Provider>;
 };
 
-const AppContext = createContext<InitialStateType>(initialState);
+export { AppContext, AppProvider };

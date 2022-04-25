@@ -11,9 +11,13 @@ const Pagination = () => {
       <button className="pagination__prev-btn" disabled>
         <BsFillCaretLeftFill />
       </button>
+
       {isEdit ? <input type="text" /> : <span></span>}
+
       <span>/</span>
+
       <span>{total}</span>
+
       <button className="pagination__next-btn">
         <BsFillCaretRightFill />
       </button>
