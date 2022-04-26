@@ -33,7 +33,7 @@ export async function getDefaultPhotos(sort: string, cardsPerPage: string, curre
       photosData.textError = 'No recent photos. Please enter a request.';
     } else {
       photosData.data = getDataWithURL(photos.photo);
-      photosData.totalPages = photos.total.toString();
+      photosData.totalPages = photos.pages.toString();
     }
   } catch (e) {
     photosData.textError = (e as Error).message;
@@ -64,7 +64,7 @@ export async function getPhotosByText(
       photosData.textError = 'Nothing found for your request';
     } else {
       photosData.data = getDataWithURL(photos.photo);
-      photosData.totalPages = photos.total.toString();
+      photosData.totalPages = photos.pages.toString();
     }
   } catch (e) {
     photosData.textError = (e as Error).message;

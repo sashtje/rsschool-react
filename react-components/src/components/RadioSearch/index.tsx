@@ -14,7 +14,7 @@ const RadioSearch = ({ label, name }: IProps) => {
   const handleChange = (e: React.ChangeEvent) => {
     const value = (e.target as HTMLInputElement).value;
 
-    dispatch({ type: 'change-per-page', payload: { cardsPerPage: value } });
+    dispatch({ type: 'change-per-page', payload: { cardsPerPage: value, currentPage: '1' } });
     dispatch({ type: 'clear-main-cards' });
   };
 

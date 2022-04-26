@@ -18,7 +18,7 @@ const FormSearch = ({ loadServerData }: { loadServerData: () => void }) => {
 
     const value = (refSearch.current as HTMLInputElement).value;
 
-    dispatch({ type: 'change-search', payload: { search: value } });
+    dispatch({ type: 'change-search', payload: { search: value, currentPage: '1' } });
     dispatch({ type: 'clear-main-cards' });
   };
 
@@ -31,7 +31,7 @@ const FormSearch = ({ loadServerData }: { loadServerData: () => void }) => {
 
   useEffect(() => {
     if (!state.main.cards.length) {
-      console.log('load data');
+      console.log('load data', state.main);
 
       loadServerData();
     }
