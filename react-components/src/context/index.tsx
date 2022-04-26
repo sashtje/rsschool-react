@@ -2,7 +2,7 @@ import { createContext, useReducer } from 'react';
 
 import { mainReducer, formReducer } from '../reducer/index';
 
-import { InitialStateType, ContextType } from './types';
+import { InitialStateType, ContextType, ActionType, MainActionType, FormActionType } from './types';
 
 import { INITIAL_STATE } from './const';
 
@@ -11,9 +11,9 @@ const AppContext = createContext<ContextType>({
   dispatch: () => null,
 });
 
-const reducer = ({ main, form }: InitialStateType, action) => ({
-  main: mainReducer(main, action),
-  form: formReducer(form, action),
+const reducer = ({ main, form }: InitialStateType, action: ActionType) => ({
+  main: mainReducer(main, action as MainActionType),
+  form: formReducer(form, action as FormActionType),
 });
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {

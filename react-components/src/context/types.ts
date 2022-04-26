@@ -32,3 +32,15 @@ export type ContextType = {
   state: InitialStateType;
   dispatch: React.Dispatch<any>;
 };
+
+export type MainActionType = {
+  type: string;
+  payload: IData;
+};
+
+export type FormActionType = {
+  type: string;
+  payload: IRegisterCardItem;
+};
+
+export type ActionType = MainActionType | FormActionType;
