@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 
 import TextField from '../TextField';
@@ -7,6 +8,7 @@ import Switcher from '../Switcher';
 import UploadPhoto from '../UploadPhoto';
 import Checkbox from '../Checkbox';
 import Submit from '../Submit';
+import { AppContext } from '../../context';
 
 import './styles.scss';
 
@@ -15,7 +17,9 @@ import { IProps, IFormData } from './types';
 
 import { countries } from '../../model/countries';
 
-const Form = ({ addCard, showNotification }: IProps) => {
+const Form = ({ showNotification }: IProps) => {
+  const { state, dispatch } = useContext(AppContext);
+
   const {
     register,
     setFocus,
@@ -51,7 +55,7 @@ const Form = ({ addCard, showNotification }: IProps) => {
       news,
     };
 
-    addCard(newCard);
+    dispatch({ type: 'add-form-card', payload: newCard });
 
     showNotification();
 

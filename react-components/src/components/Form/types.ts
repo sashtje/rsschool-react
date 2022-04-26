@@ -1,7 +1,4 @@
-import { IRegisterCardItem } from '../RegisterCardItem/types';
-
 export interface IProps {
-  addCard: (newCard: IRegisterCardItem) => void;
   showNotification: () => void;
 }
 

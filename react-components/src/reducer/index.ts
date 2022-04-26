@@ -19,7 +19,8 @@ export const mainReducer = (state: MainType, action) => {
 
 export const formReducer = (state: FormType, action) => {
   switch (action.type) {
-    case '':
+    case 'add-form-card':
+      state.cards.push(action.payload);
       return state;
 
     default:
