@@ -1,24 +1,15 @@
-import { useState } from 'react';
 import { AiOutlineEye } from 'react-icons/ai';
-
-import CardData from '../CardData';
-import ModalWindow from '../ModalWindow';
+import { Link } from 'react-router-dom';
 
 import './styles.scss';
 
 import { IProps } from './types';
 
 const CardItem = (props: IProps) => {
-  const [isModalWindowShown, setIsModalWindowShown] = useState(false);
-
-  const handleClick = () => {
-    setIsModalWindowShown(!isModalWindowShown);
-  };
-
-  const { title, ownername, views, url } = props.card;
+  const { title, ownername, views, url, id } = props.card;
 
   return (
-    <section className="card" data-testid="card" onClick={handleClick}>
+    <Link to={`/photo/${id}`} className="card" data-testid="card">
       <div
         className="card__photo"
         data-testid="card-photo"
@@ -37,13 +28,7 @@ const CardItem = (props: IProps) => {
         <AiOutlineEye />
         {views}
       </div>
-
-      {isModalWindowShown && (
-        <ModalWindow closeWindow={handleClick}>
-          <CardData card={props.card} />
-        </ModalWindow>
-      )}
-    </section>
+    </Link>
   );
 };
 
