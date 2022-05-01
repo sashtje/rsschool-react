@@ -1,17 +1,17 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AiOutlineEye } from 'react-icons/ai';
-
-import { AppContext } from '../../context';
 
 import './styles.scss';
 
 import { IData } from '../Main/types';
 
 import { GEO_KEY } from '../../model/const';
+import { useAppSelector } from '../../hooks/redux';
 
 const PhotoDetails = () => {
-  const { state } = useContext(AppContext);
+  const { cards } = useAppSelector((state) => state.mainReducer);
+
   const { id } = useParams();
   const [
     { title, description, ownername, datetaken, dateupload, lastupdate, views, tags, url },
@@ -50,7 +50,7 @@ const PhotoDetails = () => {
   };
 
   useEffect(() => {
-    const card = state.main.cards.find((item) => item.id === id);
+    const card = cards.find((item) => item.id === id);
     if (card) {
       setCardData(card);
       getFullAddress(card.latitude as string, card.longitude as string);

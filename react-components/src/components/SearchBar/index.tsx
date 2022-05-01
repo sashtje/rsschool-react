@@ -1,21 +1,20 @@
-import { RefObject, useContext, useEffect } from 'react';
+import { RefObject, useEffect } from 'react';
 import { FcSearch } from 'react-icons/fc';
-
-import { AppContext } from '../../context';
+import { useAppSelector } from '../../hooks/redux';
 
 import './styles.scss';
 
 const SearchBar = ({ refSearch }: { refSearch: RefObject<HTMLInputElement> }) => {
-  const { state } = useContext(AppContext);
+  const { search } = useAppSelector((state) => state.mainReducer);
 
   const handleBlur = () => {
-    if (state.main.search !== (refSearch.current as HTMLInputElement).value) {
-      (refSearch.current as HTMLInputElement).value = state.main.search;
+    if (search !== (refSearch.current as HTMLInputElement).value) {
+      (refSearch.current as HTMLInputElement).value = search;
     }
   };
 
   useEffect(() => {
-    (refSearch.current as HTMLInputElement).value = state.main.search;
+    (refSearch.current as HTMLInputElement).value = search;
   }, []);
 
   return (

@@ -1,32 +1,27 @@
-import { useContext } from 'react';
-
 import Label from '../Label';
-import { AppContext } from '../../context';
+import { setSort, clearCards } from '../../store/reducers/mainSlice';
 
 import './styles.scss';
 
 import { IProps } from './types';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 const SelectSearch = ({ label, options, name }: IProps) => {
-  const { state, dispatch } = useContext(AppContext);
+  const { sort } = useAppSelector((state) => state.mainReducer);
+  const dispatch = useAppDispatch();
 
   const handleChange = (e: React.ChangeEvent) => {
     const value = (e.target as HTMLSelectElement).value;
 
-    dispatch({ type: 'change-sort', payload: { sort: value } });
-    dispatch({ type: 'clear-main-cards' });
+    dispatch(setSort(value));
+    dispatch(clearCards());
   };
 
   return (
     <div className="selectfield">
       <Label>
         {label}
-        <select
-          value={state.main.sort}
-          onChange={handleChange}
-          className="selectfield__select"
-          name={name}
-        >
+        <select value={sort} onChange={handleChange} className="selectfield__select" name={name}>
           {options.map(({ value, text }) => (
             <option value={value} key={value}>
               {text}

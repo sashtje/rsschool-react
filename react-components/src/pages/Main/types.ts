@@ -24,7 +24,6 @@ export interface IData {
 }
 
 export interface IPhotosData {
-  textError: string;
   data: IData[];
   totalPages: string;
 }

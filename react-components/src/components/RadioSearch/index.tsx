@@ -1,7 +1,6 @@
-import { useContext } from 'react';
-
 import Label from '../Label';
-import { AppContext } from '../../context';
+import { setPerPage, clearCards } from '../../store/reducers/mainSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 import './styles.scss';
 
@@ -10,12 +9,14 @@ import { IProps } from './types';
 import { radioOptions } from '../../model/radio-options';
 
 const RadioSearch = ({ label, name }: IProps) => {
-  const { state, dispatch } = useContext(AppContext);
+  const { cardsPerPage } = useAppSelector((state) => state.mainReducer);
+  const dispatch = useAppDispatch();
+
   const handleChange = (e: React.ChangeEvent) => {
     const value = (e.target as HTMLInputElement).value;
 
-    dispatch({ type: 'change-per-page', payload: { cardsPerPage: value, currentPage: '1' } });
-    dispatch({ type: 'clear-main-cards' });
+    dispatch(setPerPage({ cardsPerPage: value, currentPage: '1' }));
+    dispatch(clearCards());
   };
 
   return (
@@ -29,7 +30,7 @@ const RadioSearch = ({ label, name }: IProps) => {
               type="radio"
               name={name}
               value={opt}
-              checked={state.main.cardsPerPage === opt}
+              checked={cardsPerPage === opt}
               onChange={handleChange}
             />
             <span className="radio-block__inner">{opt}</span>

@@ -1,47 +1,50 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { BsFillCaretLeftFill, BsFillCaretRightFill } from 'react-icons/bs';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
-import { AppContext } from '../../context';
+import { setCurrentPage, clearCards } from '../../store/reducers/mainSlice';
 
 import './styles.scss';
 
 const Pagination = () => {
-  const { state, dispatch } = useContext(AppContext);
-  const [page, setPage] = useState<string>(state.main.currentPage);
+  const { currentPage, totalPages } = useAppSelector((state) => state.mainReducer);
+  const dispatch = useAppDispatch();
+
+  const [page, setPage] = useState<string>(currentPage);
   const [isEdit, setIsEdit] = useState(false);
 
   const handleChange = (e: React.ChangeEvent) => {
     const value = (e.target as HTMLInputElement).value;
     const valueNumber = +value;
-    if (valueNumber >= 0 && valueNumber <= +state.main.totalPages) {
+    if (valueNumber >= 0 && valueNumber <= +totalPages) {
       setPage(valueNumber.toString());
     }
   };
 
   const handleBlur = () => {
     setIsEdit(false);
-    if (page !== state.main.currentPage && page !== '0') {
+    if (page !== currentPage && page !== '0') {
       updateCurrentPage(page);
     }
   };
 
   const handleClick = () => {
-    setPage(state.main.currentPage);
+    setPage(currentPage);
     setIsEdit(true);
   };
 
   const updateCurrentPage = (value: string) => {
-    dispatch({ type: 'change-current-page', payload: { currentPage: value } });
-    dispatch({ type: 'clear-main-cards' });
+    dispatch(setCurrentPage(value));
+    dispatch(clearCards());
   };
 
   const handleBtnPrev = () => {
-    const value = +state.main.currentPage - 1;
+    const value = +currentPage - 1;
     updateCurrentPage(value.toString());
   };
 
   const handleBtnNext = () => {
-    const value = +state.main.currentPage + 1;
+    const value = +currentPage + 1;
     updateCurrentPage(value.toString());
   };
 
@@ -49,7 +52,7 @@ const Pagination = () => {
     <div className="pagination">
       <button
         className="pagination__prev-btn"
-        disabled={state.main.currentPage === '1'}
+        disabled={currentPage === '1'}
         onClick={handleBtnPrev}
       >
         <BsFillCaretLeftFill />
@@ -66,17 +69,17 @@ const Pagination = () => {
         />
       ) : (
         <span className="pagination__current-page" onClick={handleClick}>
-          {state.main.currentPage}
+          {currentPage}
         </span>
       )}
 
       <span>/</span>
 
-      <span>{state.main.totalPages}</span>
+      <span>{totalPages}</span>
 
       <button
         className="pagination__next-btn"
-        disabled={state.main.currentPage === state.main.totalPages}
+        disabled={currentPage === totalPages}
         onClick={handleBtnNext}
       >
         <BsFillCaretRightFill />

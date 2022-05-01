@@ -1,17 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { IData } from '../../pages/Main/types';
+import { fetchPhotos } from './ActionCreators';
 
-interface MainState {
-  search: string;
-  sort: string;
-  cardsPerPage: string;
-  currentPage: string;
-  totalPages: string;
-  cards: IData[];
-  isLoading: boolean;
-  error: string;
-}
+import { MainState, SetPerPageAction, SetSearchAction } from './types';
+import { IPhotosData } from '../../pages/Main/types';
 
 const initialState: MainState = {
   search: '',
@@ -41,9 +33,53 @@ loadInitState();
 export const mainSlice = createSlice({
   name: 'main',
   initialState,
-  reducers: {},
-  extraReducers: {},
+  reducers: {
+    setSearch(state, action: PayloadAction<SetSearchAction>) {
+      const { search, currentPage } = action.payload;
+
+      state.search = search;
+      state.currentPage = currentPage;
+    },
+
+    setSort(state, action: PayloadAction<string>) {
+      state.sort = action.payload;
+    },
+
+    setPerPage(state, action: PayloadAction<SetPerPageAction>) {
+      const { cardsPerPage, currentPage } = action.payload;
+
+      state.cardsPerPage = cardsPerPage;
+      state.currentPage = currentPage;
+    },
+
+    setCurrentPage(state, action: PayloadAction<string>) {
+      state.currentPage = action.payload;
+    },
+
+    clearCards(state) {
+      state.cards = [];
+    },
+  },
+  extraReducers: {
+    [fetchPhotos.pending.type]: (state) => {
+      state.isLoading = true;
+    },
+
+    [fetchPhotos.fulfilled.type]: (state, action: PayloadAction<IPhotosData>) => {
+      const { data, totalPages } = action.payload;
+
+      state.isLoading = false;
+      state.error = '';
+      state.cards = data;
+      state.totalPages = totalPages;
+    },
+
+    [fetchPhotos.rejected.type]: (state, action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+  },
 });
 
-export const {} = mainSlice.actions;
+export const { setSearch, setSort, setPerPage, setCurrentPage, clearCards } = mainSlice.actions;
 export default mainSlice.reducer;

@@ -1,16 +1,22 @@
-import { useContext, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import RadioSearch from '../RadioSearch';
 import SearchBar from '../SearchBar';
 import SelectSearch from '../SelectSearch';
-import { AppContext } from '../../context';
+import { setSearch, clearCards } from '../../store/reducers/mainSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { fetchPhotos } from '../../store/reducers/ActionCreators';
 
 import './styles.scss';
 
-import { sort } from '../../model/sort-options';
+import { sort as sortOptions } from '../../model/sort-options';
 
-const FormSearch = ({ loadServerData }: { loadServerData: () => void }) => {
-  const { state, dispatch } = useContext(AppContext);
+const FormSearch = () => {
+  const dispatch = useAppDispatch();
+  const { search, currentPage, totalPages, cardsPerPage, sort, cards } = useAppSelector(
+    (state) => state.mainReducer
+  );
+
   const refSearch = useRef<HTMLInputElement>(null);
 
   const onSubmit = (e: React.FormEvent) => {
@@ -18,31 +24,28 @@ const FormSearch = ({ loadServerData }: { loadServerData: () => void }) => {
 
     const value = (refSearch.current as HTMLInputElement).value;
 
-    dispatch({ type: 'change-search', payload: { search: value, currentPage: '1' } });
-    dispatch({ type: 'clear-main-cards' });
+    dispatch(setSearch({ search: value, currentPage: '1' }));
+    dispatch(clearCards());
   };
 
   useEffect(() => {
-    const { search, sort, cardsPerPage, currentPage, totalPages } = state.main;
     const settings = { search, sort, cardsPerPage, currentPage, totalPages };
 
     localStorage.setItem('searchbar', JSON.stringify(settings));
-  }, [state.main]);
+  }, [search, sort, cardsPerPage, currentPage, totalPages]);
 
   useEffect(() => {
-    if (!state.main.cards.length) {
-      console.log('load data', state.main);
-
-      loadServerData();
+    if (!cards.length) {
+      dispatch(fetchPhotos({ search, sort, cardsPerPage, currentPage }));
     }
-  }, [state.main.cards]);
+  }, [cards]);
 
   return (
     <form action="" className="home__form search-form" onSubmit={onSubmit}>
       <SearchBar refSearch={refSearch} />
 
       <div className="search-form__block">
-        <SelectSearch label="Sort:" options={sort} name="sort" />
+        <SelectSearch label="Sort:" options={sortOptions} name="sort" />
 
         <RadioSearch label="Per page:" name="perpage" />
       </div>

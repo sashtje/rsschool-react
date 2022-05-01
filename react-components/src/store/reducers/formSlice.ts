@@ -1,9 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IRegisterCardItem } from '../../components/RegisterCardItem/types';
 
-interface FormState {
-  cards: IRegisterCardItem[];
-}
+import { IRegisterCardItem } from '../../components/RegisterCardItem/types';
+import { FormState } from './types';
 
 const initialState: FormState = {
   cards: [],
