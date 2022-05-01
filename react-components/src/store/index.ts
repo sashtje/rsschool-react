@@ -1,6 +1,9 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-const rootReducer = combineReducers({ photoReducer });
+import mainReducer from './reducers/mainSlice';
+import formReducer from './reducers/formSlice';
+
+const rootReducer = combineReducers({ mainReducer, formReducer });
 
 export const setupStore = () => {
   return configureStore({ reducer: rootReducer });
