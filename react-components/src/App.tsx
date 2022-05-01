@@ -1,13 +1,17 @@
 import AppRouter from './components/AppRouter';
-import { AppProvider } from './context';
+import { Provider } from 'react-redux';
+
+import { setupStore } from './store';
 
 import './App.scss';
 
+const store = setupStore();
+
 const App = () => {
   return (
-    <AppProvider>
+    <Provider store={store}>
       <AppRouter />;
-    </AppProvider>
+    </Provider>
   );
 };
 
