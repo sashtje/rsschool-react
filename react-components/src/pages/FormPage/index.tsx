@@ -1,14 +1,16 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 
 import Form from '../../components/Form';
 import RegisterCardList from '../../components/RegisterCardList';
 import NotificationWindow from '../../components/NotificationWindow';
-import { AppContext } from '../../context';
+
+import { useAppSelector } from '../../hooks/redux';
 
 import './styles.scss';
 
 const FormPage = () => {
-  const { state } = useContext(AppContext);
+  const { cards } = useAppSelector((state) => state.formReducer);
+
   const [isShowNotification, setIsShowNotification] = useState(false);
 
   const showNotification = () => {
@@ -23,7 +25,7 @@ const FormPage = () => {
     <main className="form-page">
       <Form showNotification={showNotification} />
 
-      <RegisterCardList cards={state.form.cards} className="form-page__register-cards" />
+      <RegisterCardList cards={cards} className="form-page__register-cards" />
 
       {isShowNotification && <NotificationWindow message="The data was saved successfully!" />}
     </main>

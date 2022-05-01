@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 
 import TextField from '../TextField';
@@ -8,7 +7,9 @@ import Switcher from '../Switcher';
 import UploadPhoto from '../UploadPhoto';
 import Checkbox from '../Checkbox';
 import Submit from '../Submit';
-import { AppContext } from '../../context';
+
+import { useAppDispatch } from '../../hooks/redux';
+import { addCard } from '../../store/reducers/formSlice';
 
 import './styles.scss';
 
@@ -18,7 +19,7 @@ import { IProps, IFormData } from './types';
 import { countries } from '../../model/countries';
 
 const Form = ({ showNotification }: IProps) => {
-  const { state, dispatch } = useContext(AppContext);
+  const dispatch = useAppDispatch();
 
   const {
     register,
@@ -55,7 +56,7 @@ const Form = ({ showNotification }: IProps) => {
       news,
     };
 
-    dispatch({ type: 'add-form-card', payload: newCard });
+    dispatch(addCard(newCard));
 
     showNotification();
 
