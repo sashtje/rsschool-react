@@ -8,6 +8,7 @@ Managed and unmanaged class and functional components were learnt.
 - TypeScript
 - React-icons
 - Redux
+- Redux-thunk
 - Redux Toolkit
 - [React Hook Form](https://react-hook-form.com/)
 - Jest
