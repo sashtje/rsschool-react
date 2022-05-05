@@ -1,0 +1,10 @@
+.registercards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+
+  @media screen and (max-width: 521px) {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

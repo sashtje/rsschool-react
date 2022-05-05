@@ -1,0 +1,59 @@
+.photo-details {
+  overflow-wrap: break-word;
+
+  &__container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 20px;
+  }
+
+  &__btn-back {
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
+
+  &__photo {
+    img {
+      max-width: 100%;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  &__title {
+    margin: 10px 0 0 0;
+    font-size: 1.4rem;
+    text-align: center;
+  }
+
+  &__author {
+    margin-top: 10px;
+
+    &-name {
+      font-style: italic;
+    }
+  }
+
+  &__feedback {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    margin-top: 20px;
+
+    svg {
+      display: block;
+      font-size: 1.5rem;
+    }
+  }
+
+  &__description {
+    margin-top: 20px;
+    line-height: 1.4;
+  }
+
+  &__block {
+    margin-top: 20px;
+  }
+}
